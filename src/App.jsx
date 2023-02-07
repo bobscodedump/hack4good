@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import SignIn from "./pages/SignIn";
 
@@ -7,7 +8,11 @@ function App() {
 
   return (
     <div className="App">
-      <SignIn />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
