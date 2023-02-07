@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 
-function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
+function NavBar() {
   const [isOpen, setOpen] = useState(false);
   const [aboutHover, setAboutHover] = useState(false);
   const [skillsHover, setSkillsHover] = useState(false);
   const [projectsHover, setProjectsHover] = useState(false);
   const [experienceHover, setExperienceHover] = useState(false);
-  const [certificationsHover, setCertificationsHover] = useState(false);
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
@@ -35,7 +34,6 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setAboutHover(true)}
             onMouseLeave={() => setAboutHover(false)}
-            onClick={() => scrollToSection(About)}
           >
             About
           </Link>
@@ -47,7 +45,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setSkillsHover(true)}
             onMouseLeave={() => setSkillsHover(false)}
-            onClick={() => scrollToSection(Skills)}
+            to="/courses"
           >
             Courses
           </Link>
@@ -59,11 +57,11 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setProjectsHover(true)}
             onMouseLeave={() => setProjectsHover(false)}
-            onClick={() => scrollToSection(Portfolio)}
           >
             Resumes
           </Link>
           <Link
+            to="/profile"
             className={
               experienceHover
                 ? "underline mt-3 cursor-pointer"
@@ -71,7 +69,6 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setExperienceHover(true)}
             onMouseLeave={() => setExperienceHover(false)}
-            onClick={() => scrollToSection(Experience)}
           >
             Profile
           </Link>
