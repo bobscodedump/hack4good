@@ -13,16 +13,21 @@ function NavBar({ isAuth, setAuth }) {
   const [experienceHover, setExperienceHover] = useState(false);
 
   const signInWithGoogle = () => {
-    signInWithPopup(auth, provider).then((result) => {
-      localStorage.setItem("isAuth", true);
-      setAuth(true);
-    });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        localStorage.setItem("isAuth", true);
+        setAuth(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   };
 
   const signUserOut = () => {
     signOut(auth).then(() => {
       localStorage.clear();
       setAuth(false);
+
       window.location.pathname = "/";
     });
   };
@@ -73,19 +78,21 @@ function NavBar({ isAuth, setAuth }) {
           >
             Resumes
           </Link>
-          <Link
-            to="/profile"
-            className={
-              experienceHover
-                ? "underline mt-3 cursor-pointer"
-                : "mt-3 cursor-pointer"
-            }
-            onMouseEnter={() => setExperienceHover(true)}
-            onMouseLeave={() => setExperienceHover(false)}
-            onClick={() => scrollToSection(Experience)}
-          >
-            Profile
-          </Link>
+          {isAuth && (
+            <Link
+              to="/profile"
+              className={
+                experienceHover
+                  ? "underline mt-3 cursor-pointer"
+                  : "mt-3 cursor-pointer"
+              }
+              onMouseEnter={() => setExperienceHover(true)}
+              onMouseLeave={() => setExperienceHover(false)}
+              onClick={() => scrollToSection(Experience)}
+            >
+              Profile
+            </Link>
+          )}
         </ul>
         {!isAuth && (
           <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">

@@ -1,8 +1,10 @@
 import { React, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../firebase-config";
+import { db, auth, storage } from "../firebase-config";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function Editing() {
+  //text data collection
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -33,6 +35,38 @@ function Editing() {
       console.error(err.message);
     }
   };
+
+  //profile picture collection
+  const [file, setFile] = useState("");
+  const [percent, setPercent] = useState(0);
+
+  function handleChange(e) {
+    setFile(e.target.files[0]);
+  }
+
+  function handleUpload() {
+    if (!file) {
+      alert("Please choose a file first!");
+    }
+    const storageRef = ref(storage, `/${auth.currentUser.uid}/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        ); // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+        });
+      }
+    );
+  }
 
   return (
     <div>
@@ -94,6 +128,12 @@ function Editing() {
             <option value="Doctorate or higher">Doctorate or higher</option>
           </select>
         </fieldset>
+      </section>
+      <section>
+        <h2>Upload Profile Picture</h2>
+        <input type="file" accept="image/*" onChange={handleChange} />
+        <p>{percent} "% done"</p>
+        <button onClick={handleUpload}>Upload</button>
       </section>
       <div>
         <button onClick={submitForm}>Submit</button>
