@@ -3,8 +3,9 @@ import { Turn as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
+import { signOut } from "firebase/auth";
 
-function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
+function NavBar({ isAuth, setAuth }) {
   const [isOpen, setOpen] = useState(false);
   const [aboutHover, setAboutHover] = useState(false);
   const [skillsHover, setSkillsHover] = useState(false);
@@ -17,6 +18,15 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
       setAuth(true);
     });
   };
+
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setAuth(false);
+      window.location.pathname = "/";
+    });
+  };
+
   return (
     <>
       <div className=" mt-10 md:mx-5 flex flex-row justify-between">
@@ -29,6 +39,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
         </span>
         <ul className="mx-10 text-gray-500 flex flex-row items-baseline justify-evenly w-96 hidden md:flex">
           <Link
+            to="/"
             className={
               aboutHover ? "underline cursor-pointer" : "cursor-pointer"
             }
@@ -38,6 +49,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             About
           </Link>
           <Link
+            to="/courses"
             className={
               skillsHover
                 ? "underline mt-3 cursor-pointer"
@@ -50,6 +62,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Courses
           </Link>
           <Link
+            to="/resumes"
             className={
               projectsHover
                 ? "underline mt-3 cursor-pointer"
@@ -61,6 +74,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Resumes
           </Link>
           <Link
+            to="/profile"
             className={
               experienceHover
                 ? "underline mt-3 cursor-pointer"
@@ -73,13 +87,21 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Profile
           </Link>
         </ul>
-        <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">
-          Sign In
-        </p>
+        {!isAuth && (
+          <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">
+            Sign In
+          </p>
+        )}
+        {isAuth && (
+          <p onClick={signUserOut} className="mr-10 pt-4 cursor-pointer">
+            Sign Out
+          </p>
+        )}
       </div>
       {isOpen && (
         <ul className="ml-4 flex flex-col md:invisible text-gray-500">
           <Link
+            to="/"
             className={
               aboutHover ? "underline cursor-pointer" : "cursor-pointer"
             }
@@ -89,6 +111,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             About
           </Link>
           <Link
+            to="/courses"
             className={
               skillsHover
                 ? "underline mt-3 cursor-pointer"
@@ -100,6 +123,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Courses
           </Link>
           <Link
+            to="/resume"
             className={
               projectsHover
                 ? "underline mt-3 cursor-pointer"
@@ -110,18 +134,20 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
           >
             Resume
           </Link>
-          <Link
-            to="/profile"
-            className={
-              experienceHover
-                ? "underline mt-3 cursor-pointer"
-                : "mt-3 cursor-pointer"
-            }
-            onMouseEnter={() => setExperienceHover(true)}
-            onMouseLeave={() => setExperienceHover(false)}
-          >
-            Profile
-          </Link>
+          {isAuth && (
+            <Link
+              to="/profile"
+              className={
+                experienceHover
+                  ? "underline mt-3 cursor-pointer"
+                  : "mt-3 cursor-pointer"
+              }
+              onMouseEnter={() => setExperienceHover(true)}
+              onMouseLeave={() => setExperienceHover(false)}
+            >
+              Profile
+            </Link>
+          )}
         </ul>
       )}
     </>

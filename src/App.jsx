@@ -8,7 +8,7 @@ import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [isAuth, setAuth] = useState();
+  const [isAuth, setAuth] = useState(false);
 
   return (
     <div className="App">
