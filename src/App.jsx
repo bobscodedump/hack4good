@@ -1,19 +1,23 @@
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//pages
 import About from "./pages/About";
 import Courses from "./pages/Courses";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isAuth, setAuth] = useState();
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
+        <NavBar isAuth={isAuth} setAuth={setAuth} />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 
-function NavBar() {
+function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
   const [isOpen, setOpen] = useState(false);
   const [aboutHover, setAboutHover] = useState(false);
   const [skillsHover, setSkillsHover] = useState(false);
@@ -14,7 +14,7 @@ function NavBar() {
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
       localStorage.setItem("isAuth", true);
-      setIsAuth(true);
+      setAuth(true);
     });
   };
   return (
@@ -45,7 +45,7 @@ function NavBar() {
             }
             onMouseEnter={() => setSkillsHover(true)}
             onMouseLeave={() => setSkillsHover(false)}
-            to="/courses"
+            onClick={() => scrollToSection(Skills)}
           >
             Courses
           </Link>
@@ -61,7 +61,6 @@ function NavBar() {
             Resumes
           </Link>
           <Link
-            to="/profile"
             className={
               experienceHover
                 ? "underline mt-3 cursor-pointer"
@@ -69,6 +68,7 @@ function NavBar() {
             }
             onMouseEnter={() => setExperienceHover(true)}
             onMouseLeave={() => setExperienceHover(false)}
+            onClick={() => scrollToSection(Experience)}
           >
             Profile
           </Link>
@@ -111,6 +111,7 @@ function NavBar() {
             Resume
           </Link>
           <Link
+            to="/profile"
             className={
               experienceHover
                 ? "underline mt-3 cursor-pointer"
