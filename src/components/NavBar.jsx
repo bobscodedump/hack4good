@@ -12,8 +12,8 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
 
   return (
     <>
-      <div className=" mt-10 mx-10 md:mx-20 flex flex-row justify-between">
-        <span className="md:hidden">
+      <div className=" mt-10 md:mx-5 flex flex-row justify-between">
+        <span className="ml-2 md:hidden">
           <Hamburger
             toggled={isOpen}
             toggle={setOpen}
@@ -41,7 +41,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseLeave={() => setSkillsHover(false)}
             onClick={() => scrollToSection(Skills)}
           >
-            Skills
+            Courses
           </Link>
           <Link
             className={
@@ -53,7 +53,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseLeave={() => setProjectsHover(false)}
             onClick={() => scrollToSection(Portfolio)}
           >
-            Projects
+            Resumes
           </Link>
           <Link
             className={
@@ -65,24 +65,12 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseLeave={() => setExperienceHover(false)}
             onClick={() => scrollToSection(Experience)}
           >
-            Experience
-          </Link>
-          <Link
-            className={
-              certificationsHover
-                ? "underline mt-3 cursor-pointer"
-                : "mt-3 cursor-pointer"
-            }
-            onMouseEnter={() => setCertificationsHover(true)}
-            onMouseLeave={() => setCertificationsHover(false)}
-            onClick={() => scrollToSection(Certificates)}
-          >
-            Certifications
+            Profile
           </Link>
         </ul>
       </div>
       {isOpen && (
-        <ul className="mx-10 md:invisible text-gray-500">
+        <ul className="ml-4 flex flex-col md:invisible text-gray-500">
           <Link
             className={
               aboutHover ? "underline cursor-pointer" : "cursor-pointer"
@@ -101,7 +89,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseEnter={() => setSkillsHover(true)}
             onMouseLeave={() => setSkillsHover(false)}
           >
-            Skills
+            Courses
           </Link>
           <Link
             className={
@@ -112,7 +100,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseEnter={() => setProjectsHover(true)}
             onMouseLeave={() => setProjectsHover(false)}
           >
-            Projects
+            Resume
           </Link>
           <Link
             className={
@@ -123,18 +111,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             onMouseEnter={() => setExperienceHover(true)}
             onMouseLeave={() => setExperienceHover(false)}
           >
-            Experience
-          </Link>
-          <Link
-            className={
-              certificationsHover
-                ? "underline mt-3 cursor-pointer"
-                : "mt-3 cursor-pointer"
-            }
-            onMouseEnter={() => setCertificationsHover(true)}
-            onMouseLeave={() => setCertificationsHover(false)}
-          >
-            Certifications
+            Profile
           </Link>
         </ul>
       )}

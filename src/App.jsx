@@ -1,6 +1,7 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import SignIn from "./pages/SignIn";
+import About from "./pages/About";
+import Courses from "./pages/Courses";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route path="/" element={<About />} />
+          <Route path="/courses" element={<Courses />} />
         </Routes>
       </BrowserRouter>
     </div>

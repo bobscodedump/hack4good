@@ -4,7 +4,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 import NavBar from "../components/NavBar";
 
-function SignIn() {
+function About() {
   const {
     register,
     handleSubmit,
@@ -66,4 +66,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default About;
