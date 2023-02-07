@@ -4,18 +4,17 @@ import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 
-function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
+function NavBar({ isAuth, setAuth }) {
   const [isOpen, setOpen] = useState(false);
   const [aboutHover, setAboutHover] = useState(false);
   const [skillsHover, setSkillsHover] = useState(false);
   const [projectsHover, setProjectsHover] = useState(false);
   const [experienceHover, setExperienceHover] = useState(false);
-  const [certificationsHover, setCertificationsHover] = useState(false);
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
       localStorage.setItem("isAuth", true);
-      setIsAuth(true);
+      setAuth(true);
     });
   };
   return (
@@ -35,7 +34,6 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setAboutHover(true)}
             onMouseLeave={() => setAboutHover(false)}
-            onClick={() => scrollToSection(About)}
           >
             About
           </Link>
@@ -47,7 +45,6 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setSkillsHover(true)}
             onMouseLeave={() => setSkillsHover(false)}
-            onClick={() => scrollToSection(Skills)}
           >
             Courses
           </Link>
@@ -59,22 +56,23 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             }
             onMouseEnter={() => setProjectsHover(true)}
             onMouseLeave={() => setProjectsHover(false)}
-            onClick={() => scrollToSection(Portfolio)}
           >
             Resumes
           </Link>
-          <Link
-            className={
-              experienceHover
-                ? "underline mt-3 cursor-pointer"
-                : "mt-3 cursor-pointer"
-            }
-            onMouseEnter={() => setExperienceHover(true)}
-            onMouseLeave={() => setExperienceHover(false)}
-            onClick={() => scrollToSection(Experience)}
-          >
-            Profile
-          </Link>
+          {isAuth && (
+            <Link
+              to="/profile"
+              className={
+                experienceHover
+                  ? "underline mt-3 cursor-pointer"
+                  : "mt-3 cursor-pointer"
+              }
+              onMouseEnter={() => setExperienceHover(true)}
+              onMouseLeave={() => setExperienceHover(false)}
+            >
+              Profile
+            </Link>
+          )}
         </ul>
         <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">
           Sign In
@@ -114,6 +112,7 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Resume
           </Link>
           <Link
+            to="/profile"
             className={
               experienceHover
                 ? "underline mt-3 cursor-pointer"
