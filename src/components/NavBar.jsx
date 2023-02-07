@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase-config";
 
 function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
   const [isOpen, setOpen] = useState(false);
@@ -10,6 +12,12 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
   const [experienceHover, setExperienceHover] = useState(false);
   const [certificationsHover, setCertificationsHover] = useState(false);
 
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      localStorage.setItem("isAuth", true);
+      setIsAuth(true);
+    });
+  };
   return (
     <>
       <div className=" mt-10 md:mx-5 flex flex-row justify-between">
@@ -68,6 +76,9 @@ function NavBar({ About, Skills, Portfolio, Experience, Certificates }) {
             Profile
           </Link>
         </ul>
+        <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">
+          Sign In
+        </p>
       </div>
       {isOpen && (
         <ul className="ml-4 flex flex-col md:invisible text-gray-500">
