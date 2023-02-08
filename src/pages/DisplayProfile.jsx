@@ -53,7 +53,7 @@ function DisplayProfile({ profileList, imgUrl }) {
       <h1>{email}</h1>
       <h1>{mobileNumber}</h1>
       <h1>{educationLevel}</h1>
-      <img src={imgUrl} />
+      <img src={imgUrl} className="max-w-sm max-h-sm" />
     </div>
   );
 }
