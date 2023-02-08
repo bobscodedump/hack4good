@@ -5,7 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 import { signOut } from "firebase/auth";
 
-function NavBar({ isAuth, setAuth }) {
+function NavBar({ isAuth, setAuth, updateUserId }) {
   const [isOpen, setOpen] = useState(false);
   const [aboutHover, setAboutHover] = useState(false);
   const [skillsHover, setSkillsHover] = useState(false);
@@ -17,6 +17,7 @@ function NavBar({ isAuth, setAuth }) {
       .then((result) => {
         localStorage.setItem("isAuth", true);
         setAuth(true);
+        updateUserId(auth.currentUser.uid);
       })
       .catch((err) => {
         console.error(err.message);
@@ -27,6 +28,7 @@ function NavBar({ isAuth, setAuth }) {
     signOut(auth).then(() => {
       localStorage.clear();
       setAuth(false);
+      updateUserId("");
 
       window.location.pathname = "/";
     });

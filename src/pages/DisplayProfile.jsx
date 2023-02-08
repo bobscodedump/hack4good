@@ -1,9 +1,17 @@
 import { React, useState, useEffect } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
 
-function DisplayProfile() {
+function DisplayProfile({ userId }) {
+  //getting current user
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+    }
+  });
+
   //display text info
   const [profileList, setProfileList] = useState({});
 
@@ -17,29 +25,27 @@ function DisplayProfile() {
         (profile) => profile.author.id === auth.currentUser.uid
       );
       setProfileList(temp[0].inputs);
+      console.log(uid);
       console.log(auth.currentUser.uid);
     };
     getProfile();
-    // getImage();
+    getImage();
   }, []);
 
   const { name, email, mobileNumber, educationLevel } = profileList;
 
-  //display profile pic
-  //   const userId = auth.currentUser.uid;
-  //   const pathReference = ref(storage, `/${userId}/000016.JPG`);
-  //   const [imgUrl, setImgUrl] = useState("");
-  //   const getImage = async () => {
-  //     try {
-  //       getDownloadURL(pathReference).then((url) => {
-  //         // const img = document.getElementById('myimg');
-  //         // img.setAttribute('src', url);
-  //         setImgUrl(url);
-  //       });
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     }
-  //   };
+  //   display profile pic
+  const pathReference = ref(storage, `/${auth.currentUser.uid}/profile`);
+  const [imgUrl, setImgUrl] = useState("");
+  const getImage = async () => {
+    try {
+      getDownloadURL(pathReference).then((url) => {
+        setImgUrl(url);
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <div>
@@ -47,7 +53,7 @@ function DisplayProfile() {
       <h1>{email}</h1>
       <h1>{mobileNumber}</h1>
       <h1>{educationLevel}</h1>
-      {/* <img src={imgUrl} /> */}
+      <img src={imgUrl} />
     </div>
   );
 }
