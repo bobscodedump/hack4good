@@ -8,10 +8,10 @@ import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [isAuth, setAuth] = useState(false);
+  const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
 
   return (
-    <div className="App">
+    <div className="App bg-red-100 h-screen">
       <BrowserRouter>
         <NavBar isAuth={isAuth} setAuth={setAuth} />
         <Routes>
