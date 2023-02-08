@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import {
@@ -9,7 +9,26 @@ import {
 } from "firebase/storage";
 import { isValidFormat } from "@firebase/util";
 
-function Editing() {
+function Editing({ profileList, imgUrl }) {
+  //getting current profile info
+  //   const [profileList, setProfileList] = useState({});
+
+  //   const colRef = collection(db, "profile");
+
+  //   useEffect(() => {
+  //     const getProfile = async () => {
+  //       const data = await getDocs(colRef);
+  //       const profiles = data.docs.map((doc) => doc.data());
+  //       const temp = profiles.filter((profile) => profile.author.id === userId);
+  //       console.log(temp[0].inputs);
+  //       setProfileList(temp[0].inputs);
+  //       console.log(userId);
+  //       console.log(profileList);
+  //     };
+  //     getProfile();
+  //     getImage();
+  //   }, []);
+
   //text data collection
   const userId = localStorage.getItem("uid");
 
@@ -18,6 +37,10 @@ function Editing() {
     email: "",
     mobileNumber: "",
     educationLevel: "",
+  });
+
+  useEffect(() => {
+    setInputs(profileList);
   });
 
   let isFormValid = true;
@@ -147,6 +170,7 @@ function Editing() {
         <input
           type="text"
           placeholder="Full Name..."
+          key={`${Math.floor(Math.random() * 1000)}-min`}
           name="name"
           value={name}
           onChange={(e) => onChange(e)}
@@ -205,6 +229,7 @@ function Editing() {
         </fieldset>
       </section>
       <section>
+        <img src={imgUrl} />
         <h2>Upload Profile Picture</h2>
         <input type="file" accept="image/*" onChange={handleChange} />
         <p>{percent} "% done"</p>
