@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
-import dayjs from "dayjs";
+import {dayjs} from "dayjs";
 import { TimePicker } from "antd";
 import {
   ref,
