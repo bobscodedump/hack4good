@@ -1,7 +1,12 @@
 import { React, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 
 function Editing() {
   //text data collection
@@ -43,12 +48,14 @@ function Editing() {
   function handleChange(e) {
     setFile(e.target.files[0]);
   }
-
   function handleUpload() {
     if (!file) {
       alert("Please choose a file first!");
     }
-    const storageRef = ref(storage, `/${auth.currentUser.uid}/${file.name}`);
+    const storageRef = ref(storage, `/${auth.currentUser.uid}/profile`);
+    if (!storageRef) {
+      deleteObject(storageRef);
+    }
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",

@@ -3,12 +3,12 @@ import { React, useState } from "react";
 import Editing from "./Editing";
 import DisplayProfile from "./DisplayProfile";
 
-function Profile() {
+function Profile({ userId }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
     <div>
-      {isEditing ? <Editing /> : <DisplayProfile />}
+      {isEditing ? <Editing /> : <DisplayProfile userId={userId} />}
       <div>
         <button
           onClick={() => {
