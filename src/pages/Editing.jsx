@@ -11,25 +11,6 @@ import {
 } from "firebase/storage";
 
 function Editing({ profileList, imgUrl }) {
-  //getting current profile info
-  //   const [profileList, setProfileList] = useState({});
-
-  //   const colRef = collection(db, "profile");
-
-  //   useEffect(() => {
-  //     const getProfile = async () => {
-  //       const data = await getDocs(colRef);
-  //       const profiles = data.docs.map((doc) => doc.data());
-  //       const temp = profiles.filter((profile) => profile.author.id === userId);
-  //       console.log(temp[0].inputs);
-  //       setProfileList(temp[0].inputs);
-  //       console.log(userId);
-  //       console.log(profileList);
-  //     };
-  //     getProfile();
-  //     getImage();
-  //   }, []);
-
   //text data collection
   const userId = localStorage.getItem("uid");
 
@@ -41,8 +22,11 @@ function Editing({ profileList, imgUrl }) {
   });
 
   useEffect(() => {
-    setInputs(profileList);
-  });
+    if (profileList) {
+      setInputs(profileList);
+    }
+    console.log("hi");
+  }, []);
 
   let isFormValid = true;
 
@@ -175,6 +159,15 @@ function Editing({ profileList, imgUrl }) {
     su: false,
   });
 
+  const setDay = (e) => {
+    setDays({
+      ...days,
+      [e.target.name]: true,
+    });
+    console.log(e.target.value);
+    console.log(days);
+  };
+
   return (
     <div id="text input area">
       <div>
@@ -184,7 +177,6 @@ function Editing({ profileList, imgUrl }) {
           <input
             type="text"
             placeholder="Full Name..."
-            key={`${Math.floor(Math.random() * 1000)}-min`}
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
@@ -256,53 +248,55 @@ function Editing({ profileList, imgUrl }) {
       <div id="timeslot input area">
         <div>
           <section>
-            <h1>M</h1>
+            <button name="m" value={days.m} onClick={setDay}>
+              M
+            </button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>T</h1>
+            <button>T</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>W</h1>
+            <button>W</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>Th</h1>
+            <button>Th</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>F</h1>
+            <button>F</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>S</h1>
+            <button>S</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
           <section>
-            <h1>Su</h1>
+            <button>Su</button>
             <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
             <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <TimePicker format={format} />
           </section>
         </div>
       </div>

@@ -13,15 +13,24 @@ function Profile() {
 
   const colRef = collection(db, "profile");
 
+  const [haveProfile, setHaveProfile] = useState(false);
+
   useEffect(() => {
     const getProfile = async () => {
-      const data = await getDocs(colRef);
-      const profiles = data.docs.map((doc) => doc.data());
-      const temp = profiles.filter((profile) => profile.author.id === userId);
-      console.log(temp[0].inputs);
-      setProfileList(temp[0].inputs);
-      console.log(userId);
-      console.log(profileList);
+      try {
+        const data = await getDocs(colRef);
+        const profiles = data.docs.map((doc) => doc.data());
+        const temp = profiles.filter((profile) => profile.author.id === userId);
+        if (temp[0] == undefined) {
+          setIsEditing(true);
+        }
+        setProfileList(temp[0].inputs);
+        console.log(userId);
+        console.log(profileList);
+      } catch (err) {
+        console.log(haveProfile);
+        console.error(err.message);
+      }
     };
     getProfile();
     getImage();
