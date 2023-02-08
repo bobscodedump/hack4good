@@ -169,9 +169,11 @@ function Editing({ profileList, imgUrl }) {
   };
 
   return (
-    <div id="text input area">
+    <div
+      id="text input area"
+      className="bg-white w-[600px] mx-auto rounded-lg px-20 py-4 mt-[40px]"
+    >
       <div>
-        <h1>Profile</h1>
         <section>
           <h2>Name</h2>
           <input
@@ -181,9 +183,10 @@ function Editing({ profileList, imgUrl }) {
             value={name}
             onChange={(e) => onChange(e)}
             required
+            className="bg-gray-100 w-[430px] h-10 rounded-md mt-2"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Email</h2>
           <input
             type="email"
@@ -193,9 +196,10 @@ function Editing({ profileList, imgUrl }) {
             value={email}
             onChange={(e) => onChange(e)}
             required
+            className="w-[430px] h-10  bg-gray-100 mt-2"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Phone Number</h2>
           <input
             type="tel"
@@ -205,9 +209,10 @@ function Editing({ profileList, imgUrl }) {
             value={mobileNumber}
             onChange={(e) => onChange(e)}
             required
+            className="w-[430px] h-10 bg-gray-100 mt-2"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Education Level</h2>
           <fieldset>
             <select
@@ -215,6 +220,7 @@ function Editing({ profileList, imgUrl }) {
               value={educationLevel}
               onChange={(e) => onChange(e)}
               required
+              className="w-[430px] h-10 bg-gray-100 mt-2"
             >
               <option value="" defaultValue={"default"} disabled="disabled">
                 -- select one --
@@ -235,7 +241,7 @@ function Editing({ profileList, imgUrl }) {
           </fieldset>
         </section>
         <section>
-          <img src={imgUrl} className="max-w-sm max-h-sm" />
+          <img src={imgUrl} className="max-w-sm w-[800px] mt-4 rounded-md" />
           <h2>Upload Profile Picture</h2>
           <input type="file" accept="image/*" onChange={handleChange} />
           <p>{percent} "% done"</p>

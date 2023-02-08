@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
-import NavBar from "../components/NavBar";
 import BgImage from "../../public/assets/images/KidneyHeart.png";
 
 function About() {

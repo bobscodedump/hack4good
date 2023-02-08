@@ -11,7 +11,7 @@ function App() {
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
 
   return (
-    <div className="App bg-red-100 h-screen">
+    <div className="App bg-red-100 h-full">
       <BrowserRouter>
         <NavBar isAuth={isAuth} setAuth={setAuth} />
         <Routes>
