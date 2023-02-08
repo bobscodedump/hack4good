@@ -1,22 +1,72 @@
-import { React, useState } from "react";
-
+import { React, useState, useEffect } from "react";
+import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+import { db, auth, storage } from "../firebase-config";
+import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "./Editing";
 import DisplayProfile from "./DisplayProfile";
 
-function Profile({ userId }) {
+function Profile() {
+  //taking in profile data
+  const userId = localStorage.getItem("uid");
+
+  const [profileList, setProfileList] = useState({});
+
+  const colRef = collection(db, "profile");
+
+  useEffect(() => {
+    const getProfile = async () => {
+      const data = await getDocs(colRef);
+      const profiles = data.docs.map((doc) => doc.data());
+      const temp = profiles.filter((profile) => profile.author.id === userId);
+      console.log(temp[0].inputs);
+      setProfileList(temp[0].inputs);
+      console.log(userId);
+      console.log(profileList);
+    };
+    getProfile();
+    getImage();
+  }, []);
+
+  //   display profile pic
+  const pathReference = ref(storage, `/${userId}/profile`);
+  const [imgUrl, setImgUrl] = useState("");
+  const getImage = async () => {
+    try {
+      getDownloadURL(pathReference).then((url) => {
+        setImgUrl(url);
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   return (
     <div>
-      {isEditing ? <Editing /> : <DisplayProfile userId={userId} />}
+      {isEditing ? (
+        <Editing profileList={profileList} imgUrl={imgUrl} />
+      ) : (
+        <DisplayProfile profileList={profileList} imgUrl={imgUrl} />
+      )}
       <div>
-        <button
-          onClick={() => {
-            setIsEditing(!isEditing);
-          }}
-        >
-          edit
-        </button>
+        {!isEditing ? (
+          <button
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            Edit
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            Save Changes
+          </button>
+        )}
       </div>
     </div>
   );

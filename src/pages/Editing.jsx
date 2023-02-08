@@ -1,6 +1,8 @@
-import { React, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { React, useState, useEffect } from "react";
+import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
+import dayjs from "dayjs";
+import { TimePicker } from "antd";
 import {
   ref,
   uploadBytesResumable,
@@ -8,8 +10,29 @@ import {
   deleteObject,
 } from "firebase/storage";
 
-function Editing() {
+function Editing({ profileList, imgUrl }) {
+  //getting current profile info
+  //   const [profileList, setProfileList] = useState({});
+
+  //   const colRef = collection(db, "profile");
+
+  //   useEffect(() => {
+  //     const getProfile = async () => {
+  //       const data = await getDocs(colRef);
+  //       const profiles = data.docs.map((doc) => doc.data());
+  //       const temp = profiles.filter((profile) => profile.author.id === userId);
+  //       console.log(temp[0].inputs);
+  //       setProfileList(temp[0].inputs);
+  //       console.log(userId);
+  //       console.log(profileList);
+  //     };
+  //     getProfile();
+  //     getImage();
+  //   }, []);
+
   //text data collection
+  const userId = localStorage.getItem("uid");
+
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -17,25 +40,88 @@ function Editing() {
     educationLevel: "",
   });
 
+  useEffect(() => {
+    setInputs(profileList);
+  });
+
+  let isFormValid = true;
+
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const { name, email, mobileNumber, educationLevel } = inputs;
 
+  const handleValidation = () => {
+    const errors = {
+      name: "",
+      email: "",
+      mobileNumber: "",
+      educationLevel: "",
+      pictureUpload: "",
+    };
+    if (name === "") {
+      isFormValid = false;
+      alert("name");
+      errors.name = "Please enter your full name";
+    }
+    if (email === "") {
+      isFormValid = false;
+      alert("email");
+      errors.email = "Please enter your email";
+    }
+    const validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!email.match(validRegex)) {
+      isFormValid = false;
+      alert("email");
+      errors.email = "Please enter a valid email";
+    }
+    const phoneRegex = /^(6|8|9)\d{7}$/;
+    if (mobileNumber === "") {
+      isFormValid = false;
+      alert("no");
+      errors.mobileNumber = "Please enter your phone number";
+    }
+    if (!mobileNumber.match(phoneRegex)) {
+      isFormValid = false;
+      alert("no");
+      errors.mobileNumber = "Please enter a valid phone number";
+    }
+    if (educationLevel == "default") {
+      isFormValid = false;
+      alert("education");
+      errors.educationLevel = "Please enter your education level";
+    }
+    if (!uploaded) {
+      isFormValid = false;
+      alert("uploaded");
+      errors.pictureUpload = "Please upload your profile picture";
+    }
+    return errors;
+  };
+
   const profileCollectionRef = collection(db, "profile");
+  const profileDoc = doc(db, "profile", userId);
 
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(profileCollectionRef, {
-        author: {
-          name: auth.currentUser.displayName,
-          id: auth.currentUser.uid,
-        },
-        inputs,
-      });
-      window.location.pathname = "/profile";
+      handleValidation();
+
+      if (isFormValid && uploaded) {
+        await deleteDoc(profileDoc);
+        await setDoc(profileDoc, {
+          author: {
+            name: auth.currentUser.displayName,
+            id: userId,
+          },
+          inputs,
+        });
+        window.location.pathname = "/profile";
+      } else {
+        alert("Form has errors");
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -44,6 +130,7 @@ function Editing() {
   //profile picture collection
   const [file, setFile] = useState("");
   const [percent, setPercent] = useState(0);
+  const [uploaded, updateUploaded] = useState(false);
 
   function handleChange(e) {
     setFile(e.target.files[0]);
@@ -52,7 +139,7 @@ function Editing() {
     if (!file) {
       alert("Please choose a file first!");
     }
-    const storageRef = ref(storage, `/${auth.currentUser.uid}/profile`);
+    const storageRef = ref(storage, `/${userId}/profile`);
     if (!storageRef) {
       deleteObject(storageRef);
     }
@@ -64,6 +151,7 @@ function Editing() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         ); // update progress
         setPercent(percent);
+        updateUploaded(true);
       },
       (err) => console.log(err),
       () => {
@@ -75,75 +163,148 @@ function Editing() {
     );
   }
 
+  //time picker
+  const format = "HH:mm";
+  const [days, setDays] = useState({
+    m: false,
+    t: false,
+    w: false,
+    th: false,
+    f: false,
+    s: false,
+    su: false,
+  });
+
   return (
-    <div>
-      <h1>Profile</h1>
-      <section>
-        <h2>Name</h2>
-        <input
-          type="text"
-          placeholder="Full Name..."
-          name="name"
-          value={name}
-          onChange={(e) => onChange(e)}
-        />
-      </section>
-      <section>
-        <h2>Email</h2>
-        <input
-          type="email"
-          placeholder="Email..."
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-          name="email"
-          value={email}
-          onChange={(e) => onChange(e)}
-        />
-      </section>
-      <section>
-        <h2>Phone Number</h2>
-        <input
-          type="tel"
-          placeholder="Phone Number..."
-          pattern="[8-9]-------"
-          name="mobileNumber"
-          value={mobileNumber}
-          onChange={(e) => onChange(e)}
-        />
-      </section>
-      <section>
-        <h2>Education Level</h2>
-        <fieldset>
-          <select
-            name="educationLevel"
-            value={educationLevel}
-            onChange={(e) => onChange(e)}
-          >
-            <option value="" defaultValue={"default"} disabled="disabled">
-              -- select one --
-            </option>
-            <option value="No formal education">No formal education</option>
-            <option value="Primary education">Primary education</option>
-            <option value="Secondary education">
-              Secondary education or high school
-            </option>
-            <option value="GED">Diploma</option>
-            <option value="Vocational qualification">
-              Vocational qualification
-            </option>
-            <option value="Bachelor's degree">Bachelor's degree</option>
-            <option value="Master's degree">Master's degree</option>
-            <option value="Doctorate or higher">Doctorate or higher</option>
-          </select>
-        </fieldset>
-      </section>
-      <section>
-        <h2>Upload Profile Picture</h2>
-        <input type="file" accept="image/*" onChange={handleChange} />
-        <p>{percent} "% done"</p>
-        <button onClick={handleUpload}>Upload</button>
-      </section>
+    <div id="text input area">
       <div>
-        <button onClick={submitForm}>Submit</button>
+        <h1>Profile</h1>
+        <section>
+          <h2>Name</h2>
+          <input
+            type="text"
+            placeholder="Full Name..."
+            key={`${Math.floor(Math.random() * 1000)}-min`}
+            name="name"
+            value={name}
+            onChange={(e) => onChange(e)}
+            required
+          />
+        </section>
+        <section>
+          <h2>Email</h2>
+          <input
+            type="email"
+            placeholder="Email..."
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            name="email"
+            value={email}
+            onChange={(e) => onChange(e)}
+            required
+          />
+        </section>
+        <section>
+          <h2>Phone Number</h2>
+          <input
+            type="tel"
+            placeholder="Phone Number..."
+            pattern="[8-9]-------"
+            name="mobileNumber"
+            value={mobileNumber}
+            onChange={(e) => onChange(e)}
+            required
+          />
+        </section>
+        <section>
+          <h2>Education Level</h2>
+          <fieldset>
+            <select
+              name="educationLevel"
+              value={educationLevel}
+              onChange={(e) => onChange(e)}
+              required
+            >
+              <option value="" defaultValue={"default"} disabled="disabled">
+                -- select one --
+              </option>
+              <option value="No formal education">No formal education</option>
+              <option value="Primary education">Primary education</option>
+              <option value="Secondary education">
+                Secondary education or high school
+              </option>
+              <option value="GED">Diploma</option>
+              <option value="Vocational qualification">
+                Vocational qualification
+              </option>
+              <option value="Bachelor's degree">Bachelor's degree</option>
+              <option value="Master's degree">Master's degree</option>
+              <option value="Doctorate or higher">Doctorate or higher</option>
+            </select>
+          </fieldset>
+        </section>
+        <section>
+          <img src={imgUrl} className="max-w-sm max-h-sm" />
+          <h2>Upload Profile Picture</h2>
+          <input type="file" accept="image/*" onChange={handleChange} />
+          <p>{percent} "% done"</p>
+          <button onClick={handleUpload}>Upload</button>
+        </section>
+        <div>
+          <button onClick={submitForm}>Submit</button>
+        </div>
+      </div>
+      <div id="timeslot input area">
+        <div>
+          <section>
+            <h1>M</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>T</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>W</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>Th</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>F</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>S</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+          <section>
+            <h1>Su</h1>
+            <p>From:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+            <p>To:</p>
+            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
+          </section>
+        </div>
       </div>
     </div>
   );

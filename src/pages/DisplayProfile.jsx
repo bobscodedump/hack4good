@@ -4,48 +4,48 @@ import { db, auth, storage } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
 
-function DisplayProfile({ userId }) {
+function DisplayProfile({ profileList, imgUrl }) {
   //getting current user
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-    }
-  });
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       const uid = user.uid;
+  //     }
+  //   });
+  const userId = localStorage.getItem("uid");
 
   //display text info
-  const [profileList, setProfileList] = useState({});
+  //   const [profileList, setProfileList] = useState({});
 
-  const colRef = collection(db, "profile");
+  //   const colRef = collection(db, "profile");
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const data = await getDocs(colRef);
-      const profiles = data.docs.map((doc) => doc.data());
-      const temp = profiles.filter(
-        (profile) => profile.author.id === auth.currentUser.uid
-      );
-      setProfileList(temp[0].inputs);
-      console.log(uid);
-      console.log(auth.currentUser.uid);
-    };
-    getProfile();
-    getImage();
-  }, []);
+  //   useEffect(() => {
+  //     const getProfile = async () => {
+  //       const data = await getDocs(colRef);
+  //       const profiles = data.docs.map((doc) => doc.data());
+  //       const temp = profiles.filter((profile) => profile.author.id === userId);
+  //       console.log(temp[0].inputs);
+  //       setProfileList(temp[0].inputs);
+  //       console.log(userId);
+  //       console.log(profileList);
+  //     };
+  //     getProfile();
+  //     getImage();
+  //   }, []);
 
   const { name, email, mobileNumber, educationLevel } = profileList;
 
-  //   display profile pic
-  const pathReference = ref(storage, `/${auth.currentUser.uid}/profile`);
-  const [imgUrl, setImgUrl] = useState("");
-  const getImage = async () => {
-    try {
-      getDownloadURL(pathReference).then((url) => {
-        setImgUrl(url);
-      });
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  //   //   display profile pic
+  //   const pathReference = ref(storage, `/${userId}/profile`);
+  //   const [imgUrl, setImgUrl] = useState("");
+  //   const getImage = async () => {
+  //     try {
+  //       getDownloadURL(pathReference).then((url) => {
+  //         setImgUrl(url);
+  //       });
+  //     } catch (err) {
+  //       console.error(err.message);
+  //     }
+  //   };
 
   return (
     <div>
@@ -53,7 +53,7 @@ function DisplayProfile({ userId }) {
       <h1>{email}</h1>
       <h1>{mobileNumber}</h1>
       <h1>{educationLevel}</h1>
-      <img src={imgUrl} />
+      <img src={imgUrl} className="max-w-sm max-h-sm" />
     </div>
   );
 }
