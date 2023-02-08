@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
+import NavBar from "../components/NavBar";
+import BgImage from "../../public/assets/images/KidneyHeart.png";
 
 function About() {
   const {
@@ -23,7 +25,7 @@ function About() {
 
   return (
     <>
-      <div>
+      <div className="flex">
         <div className="h-350 w-450 bg-red-300 rounded-md ml-40 mt-40 pt-10">
           <h1 className="font-bold text-4xl text-yellow-900 ml-6">
             Connect. &nbsp;&nbsp; Empower.
@@ -43,6 +45,7 @@ function About() {
             Join Us
           </span>
         </div>
+        <img src={BgImage} className="-rotate-90 ml-96 mt-40" />
       </div>
     </>
   );
