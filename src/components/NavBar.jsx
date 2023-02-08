@@ -16,8 +16,8 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
     signInWithPopup(auth, provider)
       .then((result) => {
         localStorage.setItem("isAuth", true);
+        localStorage.setItem("uid", auth.currentUser.uid);
         setAuth(true);
-        updateUserId(auth.currentUser.uid);
       })
       .catch((err) => {
         console.error(err.message);
@@ -28,7 +28,6 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
     signOut(auth).then(() => {
       localStorage.clear();
       setAuth(false);
-      updateUserId("");
 
       window.location.pathname = "/";
     });

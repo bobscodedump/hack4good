@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import {
   ref,
@@ -7,9 +7,12 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import { isValidFormat } from "@firebase/util";
 
 function Editing() {
   //text data collection
+  const userId = localStorage.getItem("uid");
+
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -17,25 +20,84 @@ function Editing() {
     educationLevel: "",
   });
 
+  let isFormValid = true;
+
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
   const { name, email, mobileNumber, educationLevel } = inputs;
 
+  const handleValidation = () => {
+    const errors = {
+      name: "",
+      email: "",
+      mobileNumber: "",
+      educationLevel: "",
+      pictureUpload: "",
+    };
+    if (name === "") {
+      isFormValid = false;
+      alert("name");
+      errors.name = "Please enter your full name";
+    }
+    if (email === "") {
+      isFormValid = false;
+      alert("email");
+      errors.email = "Please enter your email";
+    }
+    const validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!email.match(validRegex)) {
+      isFormValid = false;
+      alert("email");
+      errors.email = "Please enter a valid email";
+    }
+    const phoneRegex = /^(6|8|9)\d{7}$/;
+    if (mobileNumber === "") {
+      isFormValid = false;
+      alert("no");
+      errors.mobileNumber = "Please enter your phone number";
+    }
+    if (!mobileNumber.match(phoneRegex)) {
+      isFormValid = false;
+      alert("no");
+      errors.mobileNumber = "Please enter a valid phone number";
+    }
+    if (educationLevel == "default") {
+      isFormValid = false;
+      alert("education");
+      errors.educationLevel = "Please enter your education level";
+    }
+    if (!uploaded) {
+      isFormValid = false;
+      alert("uploaded");
+      errors.pictureUpload = "Please upload your profile picture";
+    }
+    return errors;
+  };
+
   const profileCollectionRef = collection(db, "profile");
+  const profileDoc = doc(db, "profile", userId);
 
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(profileCollectionRef, {
-        author: {
-          name: auth.currentUser.displayName,
-          id: auth.currentUser.uid,
-        },
-        inputs,
-      });
-      window.location.pathname = "/profile";
+      handleValidation();
+
+      if (isFormValid && uploaded) {
+        await deleteDoc(profileDoc);
+        await setDoc(profileDoc, {
+          author: {
+            name: auth.currentUser.displayName,
+            id: userId,
+          },
+          inputs,
+        });
+        window.location.pathname = "/profile";
+      } else {
+        alert("Form has errors");
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -44,6 +106,7 @@ function Editing() {
   //profile picture collection
   const [file, setFile] = useState("");
   const [percent, setPercent] = useState(0);
+  const [uploaded, updateUploaded] = useState(false);
 
   function handleChange(e) {
     setFile(e.target.files[0]);
@@ -52,7 +115,7 @@ function Editing() {
     if (!file) {
       alert("Please choose a file first!");
     }
-    const storageRef = ref(storage, `/${auth.currentUser.uid}/profile`);
+    const storageRef = ref(storage, `/${userId}/profile`);
     if (!storageRef) {
       deleteObject(storageRef);
     }
@@ -64,6 +127,7 @@ function Editing() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         ); // update progress
         setPercent(percent);
+        updateUploaded(true);
       },
       (err) => console.log(err),
       () => {
@@ -86,6 +150,7 @@ function Editing() {
           name="name"
           value={name}
           onChange={(e) => onChange(e)}
+          required
         />
       </section>
       <section>
@@ -97,6 +162,7 @@ function Editing() {
           name="email"
           value={email}
           onChange={(e) => onChange(e)}
+          required
         />
       </section>
       <section>
@@ -108,6 +174,7 @@ function Editing() {
           name="mobileNumber"
           value={mobileNumber}
           onChange={(e) => onChange(e)}
+          required
         />
       </section>
       <section>
@@ -117,6 +184,7 @@ function Editing() {
             name="educationLevel"
             value={educationLevel}
             onChange={(e) => onChange(e)}
+            required
           >
             <option value="" defaultValue={"default"} disabled="disabled">
               -- select one --

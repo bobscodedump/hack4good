@@ -9,16 +9,15 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
-  const [userId, updateUserId] = useState("");
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar isAuth={isAuth} setAuth={setAuth} updateUserId={updateUserId} />
+        <NavBar isAuth={isAuth} setAuth={setAuth} />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/profile" element={<Profile userId={userId} />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>

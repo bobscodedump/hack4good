@@ -4,13 +4,14 @@ import { db, auth, storage } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
 
-function DisplayProfile({ userId }) {
+function DisplayProfile() {
   //getting current user
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-    }
-  });
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       const uid = user.uid;
+  //     }
+  //   });
+  const userId = localStorage.getItem("uid");
 
   //display text info
   const [profileList, setProfileList] = useState({});
@@ -21,12 +22,11 @@ function DisplayProfile({ userId }) {
     const getProfile = async () => {
       const data = await getDocs(colRef);
       const profiles = data.docs.map((doc) => doc.data());
-      const temp = profiles.filter(
-        (profile) => profile.author.id === auth.currentUser.uid
-      );
+      const temp = profiles.filter((profile) => profile.author.id === userId);
+      console.log(temp[0].inputs);
       setProfileList(temp[0].inputs);
-      console.log(uid);
-      console.log(auth.currentUser.uid);
+      console.log(userId);
+      console.log(profileList);
     };
     getProfile();
     getImage();
@@ -35,7 +35,7 @@ function DisplayProfile({ userId }) {
   const { name, email, mobileNumber, educationLevel } = profileList;
 
   //   display profile pic
-  const pathReference = ref(storage, `/${auth.currentUser.uid}/profile`);
+  const pathReference = ref(storage, `/${userId}/profile`);
   const [imgUrl, setImgUrl] = useState("");
   const getImage = async () => {
     try {

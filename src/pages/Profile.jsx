@@ -3,20 +3,30 @@ import { React, useState } from "react";
 import Editing from "./Editing";
 import DisplayProfile from "./DisplayProfile";
 
-function Profile({ userId }) {
+function Profile() {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
     <div>
-      {isEditing ? <Editing /> : <DisplayProfile userId={userId} />}
+      {isEditing ? <Editing /> : <DisplayProfile />}
       <div>
-        <button
-          onClick={() => {
-            setIsEditing(!isEditing);
-          }}
-        >
-          edit
-        </button>
+        {!isEditing ? (
+          <button
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            Edit
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            Save Changes
+          </button>
+        )}
       </div>
     </div>
   );
