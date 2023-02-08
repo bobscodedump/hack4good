@@ -35,7 +35,7 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
 
   return (
     <>
-      <div className=" mt-10 md:mx-5 flex flex-row justify-between">
+      <div className=" pt-10 md:mx-5 flex flex-row justify-between">
         <span className="ml-2 md:hidden">
           <Hamburger
             toggled={isOpen}
@@ -96,7 +96,7 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
           )}
         </ul>
         {!isAuth && (
-          <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer">
+          <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer text-gray-500">
             Sign In
           </p>
         )}
