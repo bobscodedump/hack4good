@@ -72,6 +72,7 @@ function Profile() {
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(localStorage.getItem("isEditing"));
   const toggleElements = () => {
+    console.log(haveProfile);
     if (haveProfile) {
       localStorage.setItem("isEditing", !localStorage.getItem("isEditing"));
       setIsEditing(!localStorage.getItem("isEditing"));
