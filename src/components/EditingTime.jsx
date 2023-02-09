@@ -136,7 +136,9 @@ function EditingTime({ currTime }) {
   };
 
   useEffect(() => {
-    setTime(currTime);
+    if (!currTime == undefined) {
+      setTime(currTime);
+    }
   }, []);
 
   return (

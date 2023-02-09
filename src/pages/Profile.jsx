@@ -15,23 +15,27 @@ function Profile() {
   const userId = localStorage.getItem("uid");
 
   //get profile data from firebase
-  const [profileList, setProfileList] = useState({});
+  const [profileList, setProfileList] = useState({
+    name: "",
+    email: "",
+    mobileNumber: "",
+    educationLevel: "",
+  });
   const colRef = collection(db, "profile");
-  const [haveProfile, setHaveProfile] = useState(false);
+  const profileDoc = doc(db, "profile", userId);
+  const [haveProfile, setHaveProfile] = useState(true);
   const getProfile = async () => {
     try {
-      const data = await getDocs(colRef);
-      const profiles = data.docs.map((doc) => doc.data());
-      const temp = profiles.filter((profile) => profile.author.id === userId);
-      if (temp[0] == undefined) {
-        setHaveProfile(true);
-        setIsEditing(true);
+      const data = await getDoc(profileDoc);
+      if (!(data.data() == undefined)) {
+        setProfileList(data.data().inputs);
+        console.log("your mother not die");
+      } else {
+        console.log("your mother die");
+        setHaveProfile(false);
       }
-      setProfileList(temp[0].inputs);
-      console.log(userId);
       console.log(profileList);
     } catch (err) {
-      console.log(haveProfile);
       console.error(err.message);
     }
   };
@@ -56,22 +60,21 @@ function Profile() {
   const getTime = async () => {
     try {
       const data = await getDoc(timeDoc);
-      if (time !== undefined) {
+      if (data.data() !== undefined) {
+        setTime(data.data().time);
         setHaveTime(true);
       }
-      setTime(data.data().time);
-      // console.log(time);
-      // console.log(haveTime);
     } catch (err) {
       console.error(err.message);
     }
   };
 
   //toggle editing and display pages
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(localStorage.getItem("isEditing"));
   const toggleElements = () => {
     if (haveProfile) {
-      setIsEditing(!isEditing);
+      localStorage.setItem("isEditing", !localStorage.getItem("isEditing"));
+      setIsEditing(!localStorage.getItem("isEditing"));
     } else {
       alert("profile incomplete!");
     }
@@ -79,15 +82,21 @@ function Profile() {
 
   //render data
   useEffect(() => {
+    localStorage.setItem("isEditing", true);
     getProfile();
     getImage();
     getTime();
-  }, []);
+  }, [3]);
 
   return (
     <div>
       {isEditing ? (
-        <Editing profileList={profileList} imgUrl={imgUrl} time={time} />
+        <Editing
+          profileList={profileList}
+          imgUrl={imgUrl}
+          time={time}
+          setHaveProfile={setHaveProfile}
+        />
       ) : (
         <DisplayProfile
           profileList={profileList}
@@ -107,13 +116,7 @@ function Profile() {
             Edit
           </button>
         ) : (
-          <button
-            onClick={() => {
-              toggleElements;
-            }}
-          >
-            Save Changes
-          </button>
+          <button onClick={toggleElements}>Save Changes</button>
         )}
       </div>
     </div>

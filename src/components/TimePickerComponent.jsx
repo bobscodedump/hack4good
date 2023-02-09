@@ -9,39 +9,14 @@ export default function TimePickerComponent({
   time,
   intValue,
 }) {
-  // const handleStart = (e) => {
-  //   const eid = e.target.name;
-  //   console.log(eid);
-  //   // console.log(e.target.name.start);
-  //   setTime({
-  //     ...time,
-  //     [eid]: {
-  //       ...time[eid],
-  //       start: e.target.value,
-  //     },
-  //   });
-  //   console.log(time);
-  // };
   const handleStart = (index) => (e) => {
+    console.log(time);
     const temp = [...time];
     temp[index].start = e.target.value;
     setTime(temp);
     console.log(time);
   };
 
-  // const handleEnd = (e) => {
-  //   const eid = e.target.name;
-  //   console.log(time[eid]);
-  //   // console.log(e.target.name.start);
-  //   setTime({
-  //     ...time,
-  //     [eid]: {
-  //       ...time[eid],
-  //       end: e.target.value,
-  //     },
-  //   });
-  //   console.log(time);
-  // };
   const handleEnd = (index) => (e) => {
     const temp = [...time];
     temp[index].end = e.target.value;
