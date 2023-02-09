@@ -25,8 +25,13 @@ export default function TimePickerComponent({
   };
 
   return (
-    <div>
-      <button name={id} value={value} onClick={setDay}>
+    <div className="flex flex-row">
+      <button
+        name={id}
+        value={value}
+        onClick={setDay}
+        className="w-20 bg-gray-200 rounded-md py-2"
+      >
         {day}
       </button>
       {value && (
