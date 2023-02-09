@@ -11,42 +11,14 @@ import {
 } from "firebase/storage";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ currTime }) {
+function EditingTime({ currTime, daysUsed }) {
   //time picker
   const format = "HH:mm";
+
   //dates chosen
-  //   const [days, setDays] = useState({
-  //     m: false,
-  //     t: false,
-  //     w: false,
-  //     th: false,
-  //     f: false,
-  //     s: false,
-  //     su: false,
-  //   });
-  const [days, setDays] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [days, setDays] = useState(daysUsed);
 
   //set date to true/false
-  //   const setDay = (e) => {
-  //     let temp;
-  //     if (e.target.value == "false") {
-  //       temp = true;
-  //     } else {
-  //       temp = false;
-  //     }
-  //     setDays((prevState) => ({
-  //       ...prevState,
-  //       [e.target.name]: temp,
-  //     }));
-  //   };
   const setDay = (index) => (e) => {
     const temp = [...days];
     let bool;
@@ -60,16 +32,6 @@ function EditingTime({ currTime }) {
     // console.log(days);
   };
 
-  //time info
-  //   const [time, setTime] = useState({
-  //     m: { start: "", end: "" },
-  //     t: { start: "", end: "" },
-  //     w: { start: "", end: "" },
-  //     th: { start: "", end: "" },
-  //     f: { start: "", end: "" },
-  //     s: { start: "", end: "" },
-  //     su: { start: "", end: "" },
-  //   });
   const [time, setTime] = useState([
     { start: "", end: "" },
     { start: "", end: "" },
@@ -81,19 +43,6 @@ function EditingTime({ currTime }) {
   ]);
 
   //form validation
-  //   let formIsValid = true;
-  //   const handleForm = () => {
-  //     for (var day in time) {
-  //       if (days[day]) {
-  //         console.log(time[day].start);
-  //         if (time[day].start == "" || time[day].end == "") {
-  //           return false;
-  //         }
-  //       }
-  //     }
-  //     return true;
-  //   };
-
   let formIsValid = true;
   const handleForm = () => {
     for (var i = 0; i < 7; i++) {
@@ -136,7 +85,9 @@ function EditingTime({ currTime }) {
   };
 
   useEffect(() => {
-    setTime(currTime);
+    if (!currTime == undefined) {
+      setTime(currTime);
+    }
   }, []);
 
   return (

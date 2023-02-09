@@ -10,7 +10,7 @@ import {
 
 import EditingTime from "./EditingTime";
 
-function Editing({ profileList, imgUrl, time }) {
+function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
   //text data collection
   const userId = localStorage.getItem("uid");
 
@@ -25,6 +25,8 @@ function Editing({ profileList, imgUrl, time }) {
     if (profileList) {
       setInputs(profileList);
     }
+    console.log("editinguseeffect");
+    console.log(profileList);
   }, []);
 
   let isFormValid = true;
@@ -33,7 +35,7 @@ function Editing({ profileList, imgUrl, time }) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const { name, email, mobileNumber, educationLevel } = inputs;
+  const { name, email, mobileNumber, educationLevel } = profileList;
 
   //form validation
   const handleValidation = () => {
@@ -104,6 +106,7 @@ function Editing({ profileList, imgUrl, time }) {
           inputs,
         });
         // window.location.pathname = "/profile";
+        setHaveProfile(true);
         alert("Profile updated!");
       } else {
         alert("Form has errors");
@@ -152,45 +155,50 @@ function Editing({ profileList, imgUrl, time }) {
   }
 
   return (
-    <div id="text input area">
-      <div>
-        <h1>Profile</h1>
+    <div className="bg-red-100 h-full">
+      <div
+        id="text input area"
+        className="bg-white w-[800px] mx-auto rounded-lg px-20 py-4 mt-[40px]"
+      >
         <section>
           <h2>Name</h2>
           <input
             type="text"
-            placeholder="Full Name..."
+            placeholder="  Full Name..."
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
             required
+            className="bg-gray-100 w-[640px] h-10 rounded-md mt-2 rounded-md"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Email</h2>
           <input
             type="email"
-            placeholder="Email..."
+            placeholder="   Email..."
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
             required
+            className="w-[640px] h-10  bg-gray-100 mt-2 rounded-nd"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Phone Number</h2>
           <input
             type="tel"
-            placeholder="Phone Number..."
+            placeholder="   Phone Number..."
             pattern="[8-9]-------"
             name="mobileNumber"
             value={mobileNumber}
             onChange={(e) => onChange(e)}
             required
+            className="w-[640px] h-10 bg-gray-100 mt-2 rounded-md"
           />
         </section>
-        <section>
+        <section className="mt-2">
           <h2>Education Level</h2>
           <fieldset>
             <select
@@ -198,6 +206,7 @@ function Editing({ profileList, imgUrl, time }) {
               value={educationLevel}
               onChange={(e) => onChange(e)}
               required
+              className="w-[640px] h-10 bg-gray-100 mt-2 rounded-md"
             >
               <option value="" defaultValue={"default"} disabled="disabled">
                 -- select one --
@@ -218,17 +227,27 @@ function Editing({ profileList, imgUrl, time }) {
           </fieldset>
         </section>
         <section>
-          <img src={imgUrl} className="max-w-sm max-h-sm" />
+          <img src={imgUrl} className=" w-[800px] mt-4 rounded-md mx-auto" />
           <h2>Upload Profile Picture</h2>
           <input type="file" accept="image/*" onChange={handleChange} />
           <p>{percent} "% done"</p>
-          <button onClick={handleUpload}>Upload</button>
+          <button
+            onClick={handleUpload}
+            className="w-[150px] h-10 bg-gray-100 mt-2 rounded-md"
+          >
+            Upload photo
+          </button>
         </section>
         <div>
-          <button onClick={submitForm}>Submit</button>
+          <button
+            onClick={submitForm}
+            className="w-[650px] h-10 bg-pink-200 mt-2 rounded-md"
+          >
+            Confirm Personal Details
+          </button>
         </div>
       </div>
-      <EditingTime currTime={time} />
+      <EditingTime currTime={time} daysUsed={daysUsed} />
     </div>
   );
 }

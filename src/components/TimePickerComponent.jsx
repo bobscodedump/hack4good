@@ -9,39 +9,14 @@ export default function TimePickerComponent({
   time,
   intValue,
 }) {
-  // const handleStart = (e) => {
-  //   const eid = e.target.name;
-  //   console.log(eid);
-  //   // console.log(e.target.name.start);
-  //   setTime({
-  //     ...time,
-  //     [eid]: {
-  //       ...time[eid],
-  //       start: e.target.value,
-  //     },
-  //   });
-  //   console.log(time);
-  // };
   const handleStart = (index) => (e) => {
+    console.log(time);
     const temp = [...time];
     temp[index].start = e.target.value;
     setTime(temp);
     console.log(time);
   };
 
-  // const handleEnd = (e) => {
-  //   const eid = e.target.name;
-  //   console.log(time[eid]);
-  //   // console.log(e.target.name.start);
-  //   setTime({
-  //     ...time,
-  //     [eid]: {
-  //       ...time[eid],
-  //       end: e.target.value,
-  //     },
-  //   });
-  //   console.log(time);
-  // };
   const handleEnd = (index) => (e) => {
     const temp = [...time];
     temp[index].end = e.target.value;
@@ -50,18 +25,22 @@ export default function TimePickerComponent({
   };
 
   return (
-    <div>
-      <button name={id} value={value} onClick={setDay}>
+    <div className="flex flex-row">
+      <button
+        name={id}
+        value={value}
+        onClick={setDay}
+        className="w-20 bg-gray-200 rounded-md py-2"
+      >
         {day}
       </button>
-      {value && (
-        <div>
-          <h2>From:</h2>
-          <input name={id} type="time" onChange={handleStart(intValue)} />
-          <h2>To:</h2>
-          <input name={id} type="time" onChange={handleEnd(intValue)} />
-        </div>
-      )}
+
+      <div>
+        <h2>From:</h2>
+        <input name={id} type="time" onChange={handleStart(intValue)} />
+        <h2>To:</h2>
+        <input name={id} type="time" onChange={handleEnd(intValue)} />
+      </div>
     </div>
   );
 }
