@@ -82,13 +82,13 @@ function EditingTime({ currTime }) {
     }
   };
 
-  useEffect(() => {
-    console.log(currTime);
-    // if (!currTime == undefined) {
-    //   setTime(currTime);
-    //   console.log("ALLAHU AKBAR");
-    // }
-  }, []);
+  //   useEffect(() => {
+  //     setTime(currTime);
+  //     // if (!currTime == undefined) {
+  //     //   setTime(currTime);
+  //     //   console.log("ALLAHU AKBAR");
+  //     // }
+  //   }, []);
 
   return (
     <div id="timeslot input area">
