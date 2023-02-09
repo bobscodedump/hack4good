@@ -70,6 +70,7 @@ function Profile() {
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(false);
   const toggleElements = () => {
+    console.log(haveProfile);
     if (haveProfile) {
       setIsEditing(!isEditing);
     } else {
@@ -109,7 +110,7 @@ function Profile() {
         ) : (
           <button
             onClick={() => {
-              toggleElements;
+              toggleElements
             }}
           >
             Save Changes

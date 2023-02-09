@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase-config";
 import BgImage from "../../public/assets/images/KidneyHeart.png";
+import OldMan from "../../public/assets/images/oldGuy.png";
 
 function About() {
   const {
@@ -44,8 +45,22 @@ function About() {
             Join Us
           </span>
         </div>
-        <img src={BgImage} className="-rotate-90 ml-96 mt-40" />
+        <img src={BgImage} className="-rotate-90 ml-96 mt-40 bg-fixed" />
+        
+        
+
       </div>
+      <div className="grid mt-5">
+        <h1 className="text-center font-bold text-4xl">Why Should We Support Them?</h1>
+          <h4 className="text-center">A walk through the lives of kindey patients</h4>
+          <img src={OldMan}/>
+          <h3 className="text-center">Alejo Morales</h3>
+          <div className="text-center">
+            <p>"It's like I am in prison everyday. Every time I come I feel that I am losing</p>
+            <p>time and I can't wait to get out of this,</p>
+            <p>to have something to do"</p>
+          </div>
+        </div>
     </>
   );
 }
