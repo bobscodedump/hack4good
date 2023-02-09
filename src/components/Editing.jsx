@@ -14,20 +14,22 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
   //text data collection
   const userId = localStorage.getItem("uid");
 
-  const [inputs, setInputs] = useState({
-    name: "",
-    email: "",
-    mobileNumber: "",
-    educationLevel: "",
-  });
+  const currTime = time;
 
-  useEffect(() => {
-    if (profileList) {
-      setInputs(profileList);
-    }
-    console.log("editinguseeffect");
-    console.log(profileList);
-  }, []);
+  // const [inputs, setInputs] = useState({
+  //   name: "",
+  //   email: "",
+  //   mobileNumber: "",
+  //   educationLevel: "",
+  // });
+
+  // useEffect(() => {
+  //   if (profileList) {
+  //     setInputs(profileList);
+  //   }
+  //   console.log("editinguseeffect");
+  //   console.log(profileList);
+  // }, []);
 
   let isFormValid = true;
 
@@ -247,7 +249,7 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
           </button>
         </div>
       </div>
-      <EditingTime currTime={time} daysUsed={daysUsed} />
+      <EditingTime currTime={currTime} daysUsed={daysUsed} />
     </div>
   );
 }

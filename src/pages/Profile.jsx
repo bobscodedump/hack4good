@@ -36,7 +36,7 @@ function Profile() {
         console.log("your mother die");
         setHaveProfile(false);
       }
-      console.log(profileList);
+      // console.log(profileList);
     } catch (err) {
       console.error(err.message);
     }
@@ -98,7 +98,6 @@ function Profile() {
     getProfile();
     getImage();
     getTime();
-    console.log("profileuseeffect");
   }, []);
 
   return (

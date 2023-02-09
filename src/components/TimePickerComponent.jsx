@@ -9,10 +9,11 @@ export default function TimePickerComponent({
   intValue,
   value,
 }) {
-  const [time, changeTime] = useState(currTime);
-  useEffect(() => {
-    console.log("YOUR MOTHER FUCKING DIE");
-  });
+  // const [time, changeTime] = useState(currTime);
+  // useEffect(() => {
+  //   changeTime(currTime);
+  // });
+  const time = currTime;
   const handleStart = (index) => (e) => {
     const temp = [...time];
     temp[index].start = e.target.value;
