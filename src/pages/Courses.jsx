@@ -11,16 +11,14 @@ function Courses() {
       <h1 className="text-2xl font-bold ml-40 mt-20">Categories</h1>
       <div className="flex gap-10 justify-center mt-5">
         <div className="flex flex-col">
-        <a href= "https://www.udemy.com/course/learning-python-for-data-analysis-and-visualization/ ">
-          <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
-          </a>
-          <p className="font-bold mt-1">IT</p>
-        </div>
-        <div>
         <Link to="/newpage">
           <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
-          <p className="font-bold mt-1">Design</p>
+          <p className="font-bold mt-1">IT</p>
           </Link>
+        </div>
+        <div>
+          <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
+          <p className="font-bold mt-1">Design</p>
         </div>
         <div>
           <img
