@@ -9,7 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.16.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/lab": "^5.0.0-alpha.119",
+    "@mui/material": "^5.11.8",
+    "@mui/styled-engine": "^5.11.8",
+    "@mui/x-date-pickers": "^5.0.17",
     "antd": "^5.2.0",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.7",
     "firebase": "^9.17.1",
     "hamburger-react": "^2.5.0",
