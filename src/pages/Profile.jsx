@@ -56,18 +56,17 @@ function Profile() {
   };
 
   //find days used
-  const [daysUsed, setDaysUsed] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
 
   //display schedule
-  const [time, setTime] = useState({});
+  const [time, setTime] = useState([
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+  ]);
   const [haveTime, setHaveTime] = useState(false);
   const timeDoc = doc(db, "profile", `${userId}time`);
   const getTime = async () => {
@@ -76,14 +75,6 @@ function Profile() {
       if (data.data() !== undefined) {
         setTime(data.data().time);
         setHaveTime(true);
-        data.data().time.map((key, index) => {
-          if (key.start !== "" && key.end !== "") {
-            const temp = daysUsed;
-            temp[index] = true;
-            setDaysUsed(daysUsed);
-          }
-        });
-        console.log(daysUsed);
       }
     } catch (err) {
       console.error(err.message);
@@ -118,7 +109,6 @@ function Profile() {
           imgUrl={imgUrl}
           time={time}
           setHaveProfile={setHaveProfile}
-          daysUsed={daysUsed}
         />
       ) : (
         <DisplayProfile
