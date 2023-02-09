@@ -11,25 +11,6 @@ import {
 } from "firebase/storage";
 
 function Editing({ profileList, imgUrl }) {
-  //getting current profile info
-  //   const [profileList, setProfileList] = useState({});
-
-  //   const colRef = collection(db, "profile");
-
-  //   useEffect(() => {
-  //     const getProfile = async () => {
-  //       const data = await getDocs(colRef);
-  //       const profiles = data.docs.map((doc) => doc.data());
-  //       const temp = profiles.filter((profile) => profile.author.id === userId);
-  //       console.log(temp[0].inputs);
-  //       setProfileList(temp[0].inputs);
-  //       console.log(userId);
-  //       console.log(profileList);
-  //     };
-  //     getProfile();
-  //     getImage();
-  //   }, []);
-
   //text data collection
   const userId = localStorage.getItem("uid");
 
@@ -41,8 +22,11 @@ function Editing({ profileList, imgUrl }) {
   });
 
   useEffect(() => {
-    setInputs(profileList);
-  });
+    if (profileList) {
+      setInputs(profileList);
+    }
+    console.log("hi");
+  }, []);
 
   let isFormValid = true;
 
@@ -175,135 +159,153 @@ function Editing({ profileList, imgUrl }) {
     su: false,
   });
 
+  const setDay = (e) => {
+    setDays({
+      ...days,
+      [e.target.name]: true,
+    });
+    console.log(e.target.value);
+    console.log(days);
+  };
+
   return (
-    <div id="text input area">
-      <div>
-        <h1>Profile</h1>
-        <section>
-          <h2>Name</h2>
-          <input
-            type="text"
-            placeholder="Full Name..."
-            key={`${Math.floor(Math.random() * 1000)}-min`}
-            name="name"
-            value={name}
-            onChange={(e) => onChange(e)}
-            required
-          />
-        </section>
-        <section>
-          <h2>Email</h2>
-          <input
-            type="email"
-            placeholder="Email..."
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            name="email"
-            value={email}
-            onChange={(e) => onChange(e)}
-            required
-          />
-        </section>
-        <section>
-          <h2>Phone Number</h2>
-          <input
-            type="tel"
-            placeholder="Phone Number..."
-            pattern="[8-9]-------"
-            name="mobileNumber"
-            value={mobileNumber}
-            onChange={(e) => onChange(e)}
-            required
-          />
-        </section>
-        <section>
-          <h2>Education Level</h2>
-          <fieldset>
-            <select
-              name="educationLevel"
-              value={educationLevel}
+    <div className="bg-red-100 h-full">
+      <div
+        id="text input area"
+        className="bg-white w-[600px] mx-auto rounded-lg px-20 py-4 mt-[40px]"
+      >
+        <div>
+          <section>
+            <h2>Name</h2>
+            <input
+              type="text"
+              placeholder="Full Name..."
+              name="name"
+              value={name}
               onChange={(e) => onChange(e)}
               required
-            >
-              <option value="" defaultValue={"default"} disabled="disabled">
-                -- select one --
-              </option>
-              <option value="No formal education">No formal education</option>
-              <option value="Primary education">Primary education</option>
-              <option value="Secondary education">
-                Secondary education or high school
-              </option>
-              <option value="GED">Diploma</option>
-              <option value="Vocational qualification">
-                Vocational qualification
-              </option>
-              <option value="Bachelor's degree">Bachelor's degree</option>
-              <option value="Master's degree">Master's degree</option>
-              <option value="Doctorate or higher">Doctorate or higher</option>
-            </select>
-          </fieldset>
-        </section>
-        <section>
-          <img src={imgUrl} className="max-w-sm max-h-sm" />
-          <h2>Upload Profile Picture</h2>
-          <input type="file" accept="image/*" onChange={handleChange} />
-          <p>{percent} "% done"</p>
-          <button onClick={handleUpload}>Upload</button>
-        </section>
-        <div>
-          <button onClick={submitForm}>Submit</button>
+              className="bg-gray-100 w-[430px] h-10 rounded-md mt-2"
+            />
+          </section>
+          <section className="mt-2">
+            <h2>Email</h2>
+            <input
+              type="email"
+              placeholder="Email..."
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              name="email"
+              value={email}
+              onChange={(e) => onChange(e)}
+              required
+              className="w-[430px] h-10  bg-gray-100 mt-2"
+            />
+          </section>
+          <section className="mt-2">
+            <h2>Phone Number</h2>
+            <input
+              type="tel"
+              placeholder="Phone Number..."
+              pattern="[8-9]-------"
+              name="mobileNumber"
+              value={mobileNumber}
+              onChange={(e) => onChange(e)}
+              required
+              className="w-[430px] h-10 bg-gray-100 mt-2"
+            />
+          </section>
+          <section className="mt-2">
+            <h2>Education Level</h2>
+            <fieldset>
+              <select
+                name="educationLevel"
+                value={educationLevel}
+                onChange={(e) => onChange(e)}
+                required
+                className="w-[430px] h-10 bg-gray-100 mt-2"
+              >
+                <option value="" defaultValue={"default"} disabled="disabled">
+                  -- select one --
+                </option>
+                <option value="No formal education">No formal education</option>
+                <option value="Primary education">Primary education</option>
+                <option value="Secondary education">
+                  Secondary education or high school
+                </option>
+                <option value="GED">Diploma</option>
+                <option value="Vocational qualification">
+                  Vocational qualification
+                </option>
+                <option value="Bachelor's degree">Bachelor's degree</option>
+                <option value="Master's degree">Master's degree</option>
+                <option value="Doctorate or higher">Doctorate or higher</option>
+              </select>
+            </fieldset>
+          </section>
+          <section>
+            <img src={imgUrl} className="max-w-sm w-[800px] mt-4 rounded-md" />
+            <h2>Upload Profile Picture</h2>
+            <input type="file" accept="image/*" onChange={handleChange} />
+            <p>{percent} "% done"</p>
+            <button onClick={handleUpload}>Upload</button>
+          </section>
+          <div>
+            <button onClick={submitForm}>Submit</button>
+          </div>
         </div>
-      </div>
-      <div id="timeslot input area">
-        <div>
-          <section>
-            <h1>M</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>T</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>W</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>Th</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>F</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>S</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
-          <section>
-            <h1>Su</h1>
-            <p>From:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-            <p>To:</p>
-            <TimePicker defaultValue={dayjs("12:00", format)} format={format} />
-          </section>
+        <div id="timeslot input area">
+          <div>
+            <section>
+              <button name="m" value={days.m} onClick={setDay}>
+                M
+              </button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>T</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>W</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>Th</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>F</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>S</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+            <section>
+              <button>Su</button>
+              <p>From:</p>
+              <TimePicker format={format} />
+              <p>To:</p>
+              <TimePicker format={format} />
+            </section>
+          </div>
         </div>
       </div>
     </div>
