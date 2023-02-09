@@ -5,9 +5,10 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
 
   const { name, email, mobileNumber, educationLevel } = profileList;
 
-  useEffect(() => {
-    console.log(profileList);
-  });
+  // useEffect(() => {
+  //   console.log(profileList);
+  //   console.log(time);
+  // }, [3]);
 
   return (
     <div>
@@ -57,9 +58,9 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
       </div>
       {haveTime ? (
         time.map((day, index) => {
-          console.log(index);
           if (day.start !== "" && day.end !== "") {
             let whichDay;
+
             switch (index) {
               case 0:
                 whichDay = "M";

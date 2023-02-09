@@ -25,9 +25,9 @@ function Editing({ profileList, imgUrl, time, setHaveProfile }) {
     if (profileList) {
       setInputs(profileList);
     }
-    console.log("mother");
+    console.log("editinguseeffect");
     console.log(profileList);
-  }, [3]);
+  }, []);
 
   let isFormValid = true;
 
@@ -35,7 +35,7 @@ function Editing({ profileList, imgUrl, time, setHaveProfile }) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const { name, email, mobileNumber, educationLevel } = inputs;
+  const { name, email, mobileNumber, educationLevel } = profileList;
 
   //form validation
   const handleValidation = () => {

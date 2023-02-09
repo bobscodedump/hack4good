@@ -16,6 +16,7 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
     signInWithPopup(auth, provider)
       .then((result) => {
         localStorage.setItem("isAuth", true);
+        localStorage.setItem("isEditing", false);
         localStorage.setItem("uid", auth.currentUser.uid);
         setAuth(true);
       })
@@ -96,7 +97,10 @@ function NavBar({ isAuth, setAuth, updateUserId }) {
           )}
         </ul>
         {!isAuth && (
-          <p onClick={signInWithGoogle} className="mr-10 pt-4 cursor-pointer text-gray-500">
+          <p
+            onClick={signInWithGoogle}
+            className="mr-10 pt-4 cursor-pointer text-gray-500"
+          >
             Sign In
           </p>
         )}

@@ -30,6 +30,7 @@ function Profile() {
       if (!(data.data() == undefined)) {
         setProfileList(data.data().inputs);
         console.log("your mother not die");
+        console.log(profileList);
       } else {
         console.log("your mother die");
         setHaveProfile(false);
@@ -52,6 +53,17 @@ function Profile() {
       console.error(err.message);
     }
   };
+
+  //find days used
+  const [daysUsed, setDaysUsed] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   //display schedule
   const [time, setTime] = useState({});
@@ -83,11 +95,11 @@ function Profile() {
 
   //render data
   useEffect(() => {
-    localStorage.setItem("isEditing", true);
     getProfile();
     getImage();
     getTime();
-  }, [3]);
+    console.log("profileuseeffect");
+  }, []);
 
   return (
     <div>
