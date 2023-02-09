@@ -11,7 +11,7 @@ import {
 } from "firebase/storage";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime() {
+function EditingTime({ time }) {
   //time picker
   const format = "HH:mm";
   //dates chosen

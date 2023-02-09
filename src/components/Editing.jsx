@@ -10,7 +10,7 @@ import {
 
 import EditingTime from "./EditingTime";
 
-function Editing({ profileList, imgUrl }) {
+function Editing({ profileList, imgUrl, time }) {
   //text data collection
   const userId = localStorage.getItem("uid");
 
@@ -228,7 +228,7 @@ function Editing({ profileList, imgUrl }) {
           <button onClick={submitForm}>Submit</button>
         </div>
       </div>
-      <EditingTime />
+      <EditingTime time={time} />
     </div>
   );
 }

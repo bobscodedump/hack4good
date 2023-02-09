@@ -55,14 +55,16 @@ function Profile() {
   const getTime = async () => {
     try {
       const data = await getDoc(timeDoc);
+      if (time !== undefined) {
+        setHaveTime(true);
+      }
       setTime(data.data().time);
+      console.log("HELLO");
       console.log(time);
     } catch (err) {
       console.error(err.message);
     }
   };
-
-  //destructuring timeslots
 
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(false);
@@ -71,14 +73,20 @@ function Profile() {
   useEffect(() => {
     getProfile();
     getImage();
+    getTime();
   }, []);
 
   return (
     <div>
       {isEditing ? (
-        <Editing profileList={profileList} imgUrl={imgUrl} />
+        <Editing profileList={profileList} imgUrl={imgUrl} time={time} />
       ) : (
-        <DisplayProfile profileList={profileList} imgUrl={imgUrl} />
+        <DisplayProfile
+          profileList={profileList}
+          imgUrl={imgUrl}
+          time={time}
+          setTime={setTime}
+        />
       )}
       <div>
         {!isEditing ? (
@@ -99,7 +107,44 @@ function Profile() {
           </button>
         )}
       </div>
-      <button onClick={getTime}>time</button>
+      {/* {!isEditing &&
+        haveTime &&
+        time.map((day, index) => {
+          console.log(index);
+          if (day.start !== "" && day.end !== "") {
+            let whichDay;
+            switch (index) {
+              case 0:
+                whichDay = "M";
+                break;
+              case 1:
+                whichDay = "T";
+                break;
+              case 2:
+                whichDay = "W";
+                break;
+              case 3:
+                whichDay = "Th";
+                break;
+              case 4:
+                whichDay = "F";
+                break;
+              case 5:
+                whichDay = "S";
+                break;
+              case 6:
+                whichDay = "Su";
+                break;
+            }
+            return (
+              <div>
+                <p>{whichDay}</p>
+                <p>{day.start}</p>
+                <p>{day.end}</p>
+              </div>
+            );
+          }
+        })} */}
     </div>
   );
 }
