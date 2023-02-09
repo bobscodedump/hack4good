@@ -10,9 +10,7 @@ export default function TimePickerComponent({
   value,
 }) {
   // const [time, changeTime] = useState(currTime);
-  // useEffect(() => {
-  //   changeTime(currTime);
-  // });
+
   const time = currTime;
   const handleStart = (index) => (e) => {
     const temp = [...time];
@@ -42,6 +40,7 @@ export default function TimePickerComponent({
           <input
             name={id}
             type="time"
+            value={value.start}
             onChange={handleStart(intValue)}
             className="rounded w-[300px]"
           />
@@ -51,6 +50,7 @@ export default function TimePickerComponent({
           <input
             name={id}
             type="time"
+            value={value.start}
             onChange={handleEnd(intValue)}
             className="rounded w-[300px]"
           />
