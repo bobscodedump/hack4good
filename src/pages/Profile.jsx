@@ -10,6 +10,7 @@ import { db, auth, storage } from "../firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
+import { setDay } from "date-fns";
 
 function Profile() {
   const userId = localStorage.getItem("uid");
@@ -75,6 +76,14 @@ function Profile() {
       if (data.data() !== undefined) {
         setTime(data.data().time);
         setHaveTime(true);
+        data.data().time.map((key, index) => {
+          if (key.start !== "" && key.end !== "") {
+            const temp = daysUsed;
+            temp[index] = true;
+            setDaysUsed(daysUsed);
+          }
+        });
+        console.log(daysUsed);
       }
     } catch (err) {
       console.error(err.message);
@@ -109,6 +118,7 @@ function Profile() {
           imgUrl={imgUrl}
           time={time}
           setHaveProfile={setHaveProfile}
+          daysUsed={daysUsed}
         />
       ) : (
         <DisplayProfile

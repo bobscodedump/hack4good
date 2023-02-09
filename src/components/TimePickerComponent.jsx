@@ -29,14 +29,13 @@ export default function TimePickerComponent({
       <button name={id} value={value} onClick={setDay}>
         {day}
       </button>
-      {value && (
-        <div>
-          <h2>From:</h2>
-          <input name={id} type="time" onChange={handleStart(intValue)} />
-          <h2>To:</h2>
-          <input name={id} type="time" onChange={handleEnd(intValue)} />
-        </div>
-      )}
+
+      <div>
+        <h2>From:</h2>
+        <input name={id} type="time" onChange={handleStart(intValue)} />
+        <h2>To:</h2>
+        <input name={id} type="time" onChange={handleEnd(intValue)} />
+      </div>
     </div>
   );
 }

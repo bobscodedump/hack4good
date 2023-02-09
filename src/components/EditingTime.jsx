@@ -11,20 +11,12 @@ import {
 } from "firebase/storage";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ currTime }) {
+function EditingTime({ currTime, daysUsed }) {
   //time picker
   const format = "HH:mm";
 
   //dates chosen
-  const [days, setDays] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [days, setDays] = useState(daysUsed);
 
   //set date to true/false
   const setDay = (index) => (e) => {
