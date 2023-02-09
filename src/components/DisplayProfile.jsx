@@ -45,11 +45,6 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
                   <h1 className="text-red-600">{educationLevel}</h1>
                 </div>
               </div>
-
-              <div className="mt-10 text-yellow-900 ml-24 text-xl">
-                <h1 className="font-bold">About me</h1>
-                <p>blah blah blah blah blah blah</p>
-              </div>
             </div>
           </div>
         </div>

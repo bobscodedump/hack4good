@@ -247,7 +247,10 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
           </button>
         </div>
       </div>
-      <EditingTime currTime={time} daysUsed={daysUsed} />
+      <div className="bg-white w-[800px] px-4 py-2 mx-auto mt-6 rounded-lg ">
+        {" "}
+        <EditingTime currTime={time} daysUsed={daysUsed} />
+      </div>
     </div>
   );
 }

@@ -1,22 +1,22 @@
 import { React, useState, useEffect } from "react";
 import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
-import dayjs from "dayjs";
-import { TimePicker } from "antd";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ currTime, daysUsed }) {
+function EditingTime({ currTime }) {
   //time picker
   const format = "HH:mm";
 
   //dates chosen
-  const [days, setDays] = useState(daysUsed);
+  const [days, setDays] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   //set date to true/false
   const setDay = (index) => (e) => {
@@ -32,15 +32,16 @@ function EditingTime({ currTime, daysUsed }) {
     // console.log(days);
   };
 
-  const [time, setTime] = useState([
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-  ]);
+  //   const [time, setTime] = useState([
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //     { start: "", end: "" },
+  //   ]);
+  const [time, setTime] = useState(currTime);
 
   //form validation
   let formIsValid = true;
@@ -76,97 +77,90 @@ function EditingTime({ currTime, daysUsed }) {
       } else {
         alert("Please fill in the timeslots");
       }
-      //   console.log(days);
-
-      //   window.location.pathname = "/profile";
     } catch (err) {
       console.error(err.message);
     }
   };
 
   useEffect(() => {
-    if (!currTime == undefined) {
-      setTime(currTime);
-    }
+    console.log(currTime);
+    // if (!currTime == undefined) {
+    //   setTime(currTime);
+    //   console.log("ALLAHU AKBAR");
+    // }
   }, []);
 
   return (
     <div id="timeslot input area">
       <div>
         <section>
+          <h1 className="text-center font-bold text-2xl">
+            Present Kidney Dialysis Schedule
+          </h1>
           <TimePickerComponent
             id="m"
-            day="M"
-            // value={days.m}
-            value={days[0]}
-            setDay={setDay(0)}
+            day="Monday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={0}
+            value={time[0]}
           />
           <TimePickerComponent
             id="t"
-            day="T"
-            // value={days.t}
-            value={days[1]}
-            setDay={setDay(1)}
+            day="Tuesday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={1}
+            value={time[1]}
           />
           <TimePickerComponent
             id="w"
-            day="W"
-            // value={days.w}
-            value={days[2]}
-            setDay={setDay(2)}
+            day="Wednesday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={2}
+            value={time[2]}
           />
           <TimePickerComponent
             id="th"
-            day="Th"
-            // value={days.th}
-            value={days[3]}
-            setDay={setDay(3)}
+            day="Thursday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={3}
+            value={time[3]}
           />
           <TimePickerComponent
             id="f"
-            day="F"
-            // value={days.f}
-            value={days[4]}
-            setDay={setDay(4)}
+            day="Friday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={4}
+            value={time[4]}
           />
           <TimePickerComponent
             id="s"
-            day="S"
-            // value={days.s}
-            value={days[5]}
-            setDay={setDay(5)}
+            day="Saturday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={5}
+            value={time[5]}
           />
           <TimePickerComponent
             id="su"
-            day="Su"
-            // value={days.su}
-            value={days[6]}
-            setDay={setDay(6)}
+            day="Sunday"
             setTime={setTime}
-            time={time}
+            currTime={time}
             intValue={6}
+            value={time[6]}
           />
         </section>
         <div>
-          <button onClick={submitForm}>Submit</button>
+          <button
+            onClick={submitForm}
+            className="bg-pink-200 px-4 py-2 rounded-md"
+          >
+            Confirm dialysis schedule
+          </button>
         </div>
       </div>
     </div>
