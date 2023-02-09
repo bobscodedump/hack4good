@@ -59,8 +59,8 @@ function Profile() {
         setHaveTime(true);
       }
       setTime(data.data().time);
-      console.log("HELLO");
-      console.log(time);
+      // console.log(time);
+      // console.log(haveTime);
     } catch (err) {
       console.error(err.message);
     }
@@ -86,6 +86,7 @@ function Profile() {
           imgUrl={imgUrl}
           time={time}
           setTime={setTime}
+          haveTime={haveTime}
         />
       )}
       <div>

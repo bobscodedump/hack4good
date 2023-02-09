@@ -228,7 +228,7 @@ function Editing({ profileList, imgUrl, time }) {
           <button onClick={submitForm}>Submit</button>
         </div>
       </div>
-      <EditingTime time={time} />
+      <EditingTime currTime={time} />
     </div>
   );
 }

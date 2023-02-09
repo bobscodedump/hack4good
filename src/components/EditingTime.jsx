@@ -11,7 +11,7 @@ import {
 } from "firebase/storage";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ time }) {
+function EditingTime({ currTime }) {
   //time picker
   const format = "HH:mm";
   //dates chosen
@@ -134,6 +134,10 @@ function EditingTime({ time }) {
       console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    setTime(currTime);
+  }, []);
 
   return (
     <div id="timeslot input area">
