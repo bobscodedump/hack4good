@@ -4,6 +4,7 @@ import Excel from "../../public/assets/images/ExcelImage.jpg";
 import File from "../../public/assets/images/FileImage.jpg";
 import Person from "../../public/assets/images/personImg.jpg";
 import Telephone from "../../public/assets/images/telephoneImg.jpg";
+import Bling from "../../public/assets/images/bling.jpg";
 import { Link } from "react-router-dom";
 function Courses() {
   return (
@@ -11,13 +12,13 @@ function Courses() {
       <h1 className="text-2xl font-bold ml-40 mt-20">Categories</h1>
       <div className="flex gap-10 justify-center mt-5">
         <div className="flex flex-col">
-        <Link to="/newpage">
-          <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
-          <p className="font-bold mt-1">IT</p>
+          <Link to="/newpage">
+            <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
+            <p className="font-bold mt-1">IT</p>
           </Link>
         </div>
         <div>
-          <img src={Gear} className="w-40 rounded-lg cursor-pointer"></img>
+          <img src={Bling} className="w-40 rounded-lg cursor-pointer"></img>
           <p className="font-bold mt-1">Design</p>
         </div>
         <div>
