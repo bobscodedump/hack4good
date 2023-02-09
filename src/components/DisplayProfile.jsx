@@ -49,48 +49,49 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
         </div>
 
-        <div className="h-[400px] w-[464px] bg-mudPink"></div>
-      </div>
-      {haveTime ? (
-        time.map((day, index) => {
-          if (day.start !== "" && day.end !== "") {
-            let whichDay;
+        <div className="h-[400px] w-[464px] bg-mudPink">
+          {haveTime ? (
+            time.map((day, index) => {
+              if (day.start !== "" && day.end !== "") {
+                let whichDay;
 
-            switch (index) {
-              case 0:
-                whichDay = "M";
-                break;
-              case 1:
-                whichDay = "T";
-                break;
-              case 2:
-                whichDay = "W";
-                break;
-              case 3:
-                whichDay = "Th";
-                break;
-              case 4:
-                whichDay = "F";
-                break;
-              case 5:
-                whichDay = "S";
-                break;
-              case 6:
-                whichDay = "Su";
-                break;
-            }
-            return (
-              <div>
-                <p>{whichDay}</p>
-                <p>{day.start}</p>
-                <p>{day.end}</p>
-              </div>
-            );
-          }
-        })
-      ) : (
-        <div></div>
-      )}
+                switch (index) {
+                  case 0:
+                    whichDay = "M";
+                    break;
+                  case 1:
+                    whichDay = "T";
+                    break;
+                  case 2:
+                    whichDay = "W";
+                    break;
+                  case 3:
+                    whichDay = "Th";
+                    break;
+                  case 4:
+                    whichDay = "F";
+                    break;
+                  case 5:
+                    whichDay = "S";
+                    break;
+                  case 6:
+                    whichDay = "Su";
+                    break;
+                }
+                return (
+                  <div>
+                    <p>{whichDay}</p>
+                    <p>{day.start}</p>
+                    <p>{day.end}</p>
+                  </div>
+                );
+              }
+            })
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
