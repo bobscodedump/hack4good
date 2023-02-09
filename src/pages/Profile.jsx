@@ -24,6 +24,7 @@ function Profile() {
       const profiles = data.docs.map((doc) => doc.data());
       const temp = profiles.filter((profile) => profile.author.id === userId);
       if (temp[0] == undefined) {
+        setHaveProfile(true);
         setIsEditing(true);
       }
       setProfileList(temp[0].inputs);
@@ -68,6 +69,13 @@ function Profile() {
 
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(false);
+  const toggleElements = () => {
+    if (haveProfile) {
+      setIsEditing(!isEditing);
+    } else {
+      alert("profile incomplete!");
+    }
+  };
 
   //render data
   useEffect(() => {
@@ -101,51 +109,13 @@ function Profile() {
         ) : (
           <button
             onClick={() => {
-              setIsEditing(!isEditing);
+              toggleElements;
             }}
           >
             Save Changes
           </button>
         )}
       </div>
-      {/* {!isEditing &&
-        haveTime &&
-        time.map((day, index) => {
-          console.log(index);
-          if (day.start !== "" && day.end !== "") {
-            let whichDay;
-            switch (index) {
-              case 0:
-                whichDay = "M";
-                break;
-              case 1:
-                whichDay = "T";
-                break;
-              case 2:
-                whichDay = "W";
-                break;
-              case 3:
-                whichDay = "Th";
-                break;
-              case 4:
-                whichDay = "F";
-                break;
-              case 5:
-                whichDay = "S";
-                break;
-              case 6:
-                whichDay = "Su";
-                break;
-            }
-            return (
-              <div>
-                <p>{whichDay}</p>
-                <p>{day.start}</p>
-                <p>{day.end}</p>
-              </div>
-            );
-          }
-        })} */}
     </div>
   );
 }
