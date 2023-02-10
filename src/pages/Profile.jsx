@@ -50,10 +50,8 @@ function Profile({
   //     const data = await getDoc(profileDoc);
   //     if (!(data.data() == undefined)) {
   //       setProfileList(data.data().inputs);
-  //       console.log("your mother not die");
   //       console.log(profileList);
   //     } else {
-  //       console.log("your mother die");
   //       setHaveProfile(false);
   //     }
   //     // console.log(profileList);
