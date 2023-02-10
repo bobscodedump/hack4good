@@ -96,9 +96,13 @@ function Resumes({}) {
         {resumeData.map((e) => {
           return (
             <div className="m-10 bg-pink-500 p-10 rounded-lg shadow-lg">
-              <h1 className="text-center font-sans font-bold text-xl">
-                {e.inputs.name}
-              </h1>
+              <div className="flex justify-center">
+                <h1>Name:</h1>
+                <h1 className="text-center font-sans font-bold text-xl">
+                  {e.inputs.name}
+                </h1>
+              </div>
+
               <h1 className="text-center font-sans font-medium text-lg mt-2">
                 {e.inputs.email}
               </h1>

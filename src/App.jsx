@@ -22,12 +22,9 @@ import NewPage from "./pages/NewPage";
 import Design from "./pages/Design";
 import Data from "./pages/Data";
 import Resumes from "./pages/Resumes";
-import { getStepIconUtilityClass } from "@mui/material";
 
 function App() {
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
-  const [info, setInfo] = useState({});
-
   const userId = localStorage.getItem("uid");
 
   //get profile data from firebase
@@ -122,6 +119,7 @@ function App() {
     getProfile();
     getImage();
     getTime();
+    localStorage.setItem("isAuth", false);
     // if (!haveProfile) {
     //   localStorage.setItem("isEditing", false);
     // } else {
@@ -151,7 +149,6 @@ function App() {
             path="/profile"
             element={
               <Profile
-                setInfo={setInfo}
                 profileList={profileList}
                 setProfileList={setProfileList}
                 userId={userId}
