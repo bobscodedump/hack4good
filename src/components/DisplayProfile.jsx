@@ -50,7 +50,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
         </div>
 
-        <div className="h-[400px] w-screen bg-mudPink">
+        <div className=" w-screen bg-mudPink">
           {haveTime ? (
             time.map((day, index) => {
               if (day.start !== "" && day.end !== "") {
@@ -80,8 +80,10 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
                     break;
                 }
                 return (
-                  <div>
-                    <p>{whichDay}</p>
+                  <div className="bg-red-100 py-10">
+                    <p className="text-xl font-bold py-4 underline ml-4">
+                      {whichDay}
+                    </p>
                     <TimeBar startTime={day.start} endTime={day.end} />
                   </div>
                 );

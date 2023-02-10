@@ -135,18 +135,21 @@ function Profile() {
 
       <div>
         {!isEditing ? (
-          <button
-            onClick={() => {
-              setIsEditing(!isEditing);
-            }}
-          >
-            Edit
-          </button>
+          <div className="bg-red-100 -mt-4 flex flex-row justify-center mt-2">
+            <button
+              className="bg-pink-200 py-3 px-14 rounded-lg my-8"
+              onClick={() => {
+                setIsEditing(!isEditing);
+              }}
+            >
+              Edit
+            </button>
+          </div>
         ) : (
           <div className="bg-red-100">
             <button
               onClick={toggleElements}
-              className="rounded bg-pink-200 px-2 py-2 mb-10 mt-6 ml-[330px]"
+              className="rounded bg-pink-200 px-2 py-3 mb-10 mt-6 ml-[330px]"
             >
               Save Changes
             </button>
