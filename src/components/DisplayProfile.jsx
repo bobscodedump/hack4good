@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
+import TimeBar from "./TimeBar";
 
-function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
+function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
   const userId = localStorage.getItem("uid");
 
   const { name, email, mobileNumber, educationLevel } = profileList;
@@ -27,10 +28,10 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
           <div
             className="flex border-t-[150px] border-t-transparent
-    border-l-[1000px] border-l-red-200
+    border-l-[80px] border-l-red-200
     border-b-[120px] border-b-transparent relative"
           >
-            <div className="absolute flex -ml-[1225px] -mt-36">
+            <div className="absolute flex  -ml-[290px]  :md-ml-[500px]  -mt-36">
               <div className="flex flex-col ml-10 mt-10">
                 <div>
                   <h1 className=" text-yellow-900">Email</h1>
@@ -49,7 +50,10 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
         </div>
 
-        <div className="h-[400px] w-[464px] bg-mudPink">
+        <div className=" w-screen bg-mudPink">
+          <h1 className="font-bold text-2xl ml-4 bg-red-200">
+            Dialysis Schedule
+          </h1>
           {haveTime ? (
             time.map((day, index) => {
               if (day.start !== "" && day.end !== "") {
@@ -57,32 +61,33 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
 
                 switch (index) {
                   case 0:
-                    whichDay = "M";
+                    whichDay = "Monday";
                     break;
                   case 1:
-                    whichDay = "T";
+                    whichDay = "Tuesday";
                     break;
                   case 2:
-                    whichDay = "W";
+                    whichDay = "Wednesday";
                     break;
                   case 3:
-                    whichDay = "Th";
+                    whichDay = "Thursday";
                     break;
                   case 4:
-                    whichDay = "F";
+                    whichDay = "Friday";
                     break;
                   case 5:
-                    whichDay = "S";
+                    whichDay = "Saturday";
                     break;
                   case 6:
-                    whichDay = "Su";
+                    whichDay = "Sunday";
                     break;
                 }
                 return (
-                  <div>
-                    <p>{whichDay}</p>
-                    <p>{day.start}</p>
-                    <p>{day.end}</p>
+                  <div className="bg-red-200 pb-1">
+                    <p className="text-xl font-bold py-4 underline ml-4">
+                      {whichDay}
+                    </p>
+                    <TimeBar startTime={day.start} endTime={day.end} />
                   </div>
                 );
               }
@@ -90,6 +95,12 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           ) : (
             <div></div>
           )}
+          {getInputs.map((input) => (
+            <div>
+              <h1>{input.type}</h1>
+              <p>{input.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

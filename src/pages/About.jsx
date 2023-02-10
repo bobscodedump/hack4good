@@ -67,7 +67,7 @@ function About() {
         <img src={BgImage} className="-rotate-90 ml-96 mt-40 bg-fixed " />
       </div>
       <div className="grid -mt-20 bg-red-100">
-        <img src={heart} class="animate-bounce object-center mx-auto" />
+        <img src={heart} className="animate-bounce object-center mx-auto" />
 
         <h1 className="text-center text-yellow-900 font-bold font-sans text-4xl mt-30">
           Why Should We Support Them?
@@ -87,11 +87,7 @@ function About() {
           description={description[1]}
           title={title[1]}
         />
-        <img
-          src={heartree}
-          className="  position: relative;  bottom: 50; left: 0;"
-          style={{ transform: "translateY(-106%)" }}
-        />
+        <img src={heartree} className="mx-auto " />
       </div>
     </>
   );

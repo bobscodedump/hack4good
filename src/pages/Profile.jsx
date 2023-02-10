@@ -5,12 +5,14 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  query,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
-import { setDay } from "date-fns";
 
 function Profile() {
   const userId = localStorage.getItem("uid");
@@ -75,6 +77,9 @@ function Profile() {
       if (data.data() !== undefined) {
         setTime(data.data().time);
         setHaveTime(true);
+        console.log("get time");
+        console.log(time);
+        console.log(time === undefined);
       }
     } catch (err) {
       console.error(err.message);
@@ -105,6 +110,28 @@ function Profile() {
     }
     setIsEditing(localStorage.getItem("isEditing"));
     console.log(time);
+    if (!localStorage.getItem("isAuth")) {
+      window.location.pathname = "/about";
+    }
+  }, []);
+
+  //get experiences
+  const [getInputs, setGetInputs] = useState([]);
+  useEffect(() => {
+    const q = query(
+      collection(db, "profile", `${userId}entries`, "jobs"),
+      orderBy("type")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setGetInputs(
+        querySnapshot.docs.map((doc) => ({
+          type: doc.data().type,
+          description: doc.data().description,
+          id: doc.id,
+        }))
+      );
+    });
+    console.log(getInputs);
   }, []);
 
   return (
@@ -117,6 +144,8 @@ function Profile() {
           time={time}
           setTime={setTime}
           setHaveProfile={setHaveProfile}
+          getInputs={getInputs}
+          setGetInputs={setGetInputs}
         />
       ) : (
         <DisplayProfile
@@ -125,22 +154,27 @@ function Profile() {
           time={time}
           setTime={setTime}
           haveTime={haveTime}
+          getInputs={getInputs}
         />
       )}
+
       <div>
         {!isEditing ? (
-          <button
-            onClick={() => {
-              setIsEditing(!isEditing);
-            }}
-          >
-            Edit
-          </button>
+          <div className="bg-red-200 -mt-4 flex flex-row justify-center mt-2">
+            <button
+              className="bg-pink-200 py-3 px-14 rounded-lg my-8"
+              onClick={() => {
+                setIsEditing(!isEditing);
+              }}
+            >
+              Edit
+            </button>
+          </div>
         ) : (
           <div className="bg-red-100">
             <button
               onClick={toggleElements}
-              className="rounded bg-pink-200 px-2 py-2 mb-10 mt-6 ml-[330px]"
+              className="rounded bg-pink-200 px-2 py-3 mb-10 mt-6 ml-[330px]"
             >
               Save Changes
             </button>
