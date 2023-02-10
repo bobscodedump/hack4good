@@ -32,7 +32,8 @@ function Experiences({ getInputs, setGetInputs }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const docRef = collection(db, "profile", `${userId}entries`, "jobs");
+      //   const docRef = collection(db, "profile", `${userId}entries`, "jobs");
+      const docRef = collection(db, "profile", `${userId}`, "jobs");
       await addDoc(docRef, {
         type: inputs.type,
         description: inputs.description,

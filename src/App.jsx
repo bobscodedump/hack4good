@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import NewPage from "./pages/NewPage";
 import Resumes from "./pages/Resumes";
+import { getStepIconUtilityClass } from "@mui/material";
 
 function App() {
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
@@ -95,6 +96,28 @@ function App() {
     }
   };
 
+  //get experiences
+  const [getInputs, setGetInputs] = useState([]);
+  const getExperiences = () => {
+    const q = query(
+      collection(db, "profile", `${userId}`, "jobs"),
+      orderBy("type")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setGetInputs(
+        querySnapshot.docs.map((doc) => ({
+          type: doc.data().type,
+          description: doc.data().description,
+          id: doc.id,
+        }))
+      );
+    });
+    console.log(getInputs);
+  };
+  useEffect(() => {
+    getExperiences;
+  }, []);
+
   useEffect(() => {
     getProfile();
     getImage();
@@ -143,6 +166,9 @@ function App() {
                 getTime={getTime}
                 haveTime={haveTime}
                 setHaveTime={setHaveTime}
+                getInputs={getInputs}
+                setGetInputs={setGetInputs}
+                getExperiences={getExperiences}
               />
             }
           />

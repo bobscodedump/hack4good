@@ -29,6 +29,9 @@ function Profile({
   getTime,
   haveTime,
   setHaveTime,
+  getInputs,
+  setGetInputs,
+  getExperiences,
 }) {
   // const userId = localStorage.getItem("uid");
 
@@ -106,6 +109,7 @@ function Profile({
   const toggleElements = () => {
     getImage();
     getTime();
+    getExperiences();
     console.log(haveProfile);
     if (haveProfile) {
       localStorage.setItem("isEditing", !localStorage.getItem("isEditing"));
@@ -132,24 +136,24 @@ function Profile({
     }
   }, []);
 
-  //get experiences
-  const [getInputs, setGetInputs] = useState([]);
-  useEffect(() => {
-    const q = query(
-      collection(db, "profile", `${userId}entries`, "jobs"),
-      orderBy("type")
-    );
-    onSnapshot(q, (querySnapshot) => {
-      setGetInputs(
-        querySnapshot.docs.map((doc) => ({
-          type: doc.data().type,
-          description: doc.data().description,
-          id: doc.id,
-        }))
-      );
-    });
-    console.log(getInputs);
-  }, []);
+  // //get experiences
+  // const [getInputs, setGetInputs] = useState([]);
+  // useEffect(() => {
+  //   const q = query(
+  //     collection(db, "profile", `${userId}entries`, "jobs"),
+  //     orderBy("type")
+  //   );
+  //   onSnapshot(q, (querySnapshot) => {
+  //     setGetInputs(
+  //       querySnapshot.docs.map((doc) => ({
+  //         type: doc.data().type,
+  //         description: doc.data().description,
+  //         id: doc.id,
+  //       }))
+  //     );
+  //   });
+  //   console.log(getInputs);
+  // }, []);
 
   return (
     <div>
