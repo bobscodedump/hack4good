@@ -5,18 +5,19 @@ With a mission to uplift the emotional well-being of kidney patients, our projec
 
 To achieve this, we offer a user-friendly platform for employers to find talented individuals. Job seekers can easily upload their resumes and explore various online courses aimed at improving their employability, with a focus on tasks that can be performed remotely, such as call center services, web design, and more. Our website also features stories of kidney patients for employers to understand the unique circumstances faced by kidney patients, such as juggling with their dialysis schedule as well as managing the physical demands of kidney dialysis.
 
-How to install and run the project
-You may follow these steps:
 
+How to install and run the project:
  1. Clone the GitHub Repository 
  2. In your terminal, run the following command $ npm install
  3. Followed by this command $ npm run dev
 
-How to use the project
-The website link could be shared to kidney patients looking for a job as well as employers looking to hire talents.
+How to use the project:
+The website link could be sent to kidney patients looking for a job as well as employers looking to hire talented individuals to perform tasks remotely. Job seekers can upload their resumes and dialysis schedules on the website and browse courses to up skill themselves. On the other hand, employers can browse through the resumes submitted and contact potential candidates.
 
-Team members:
-Cleon Tan De Xuan
-Du Kaixuan
+
+
+Credits:
+Clean Tan De Xuan
+Du Kai Xuan
 Lee Seng Kitt
 Beatrice Chen Sung Ting
