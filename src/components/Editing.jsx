@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 
 import EditingTime from "./EditingTime";
-import TimePickerComponent from "./TimePickerComponent";
+import Experiences from "./Experiences";
 
 function Editing({
   profileList,
@@ -246,13 +246,7 @@ function Editing({
         {" "}
         <EditingTime currTime={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
-      {/* <TimePickerComponent
-        id="m"
-        day="Monday"
-        currTime={time}
-        intValue={0}
-        value={time[0]}
-      /> */}
+      <Experiences />
     </div>
   );
 }

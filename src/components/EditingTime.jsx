@@ -71,7 +71,7 @@ function EditingTime({ currTime, setTime }) {
             name: auth.currentUser.displayName,
             id: userId,
           },
-          time,
+          currTime,
         });
         alert("Timeslots updated!");
       } else {
