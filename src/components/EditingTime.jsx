@@ -3,7 +3,7 @@ import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ currTime }) {
+function EditingTime({ currTime, setTime }) {
   //time picker
   const format = "HH:mm";
 
@@ -41,7 +41,7 @@ function EditingTime({ currTime }) {
   //     { start: "", end: "" },
   //     { start: "", end: "" },
   //   ]);
-  const [time, setTime] = useState(currTime);
+  //   const [time, setTime] = useState(currTime);
 
   //form validation
   let formIsValid = true;
@@ -101,57 +101,57 @@ function EditingTime({ currTime }) {
             id="m"
             day="Monday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={0}
-            value={time[0]}
+            value={currTime[0]}
           />
           <TimePickerComponent
             id="t"
             day="Tuesday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={1}
-            value={time[1]}
+            value={currTime[1]}
           />
           <TimePickerComponent
             id="w"
             day="Wednesday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={2}
-            value={time[2]}
+            value={currTime[2]}
           />
           <TimePickerComponent
             id="th"
             day="Thursday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={3}
-            value={time[3]}
+            value={currTime[3]}
           />
           <TimePickerComponent
             id="f"
             day="Friday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={4}
-            value={time[4]}
+            value={currTime[4]}
           />
           <TimePickerComponent
             id="s"
             day="Saturday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={5}
-            value={time[5]}
+            value={currTime[5]}
           />
           <TimePickerComponent
             id="su"
             day="Sunday"
             setTime={setTime}
-            currTime={time}
+            currTime={currTime}
             intValue={6}
-            value={time[6]}
+            value={currTime[6]}
           />
         </section>
         <div>

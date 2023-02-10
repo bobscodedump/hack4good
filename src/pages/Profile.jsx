@@ -98,6 +98,13 @@ function Profile() {
     getProfile();
     getImage();
     getTime();
+    if (!haveProfile) {
+      localStorage.setItem("isEditing", false);
+    } else {
+      localStorage.setItem("isEditing", true);
+    }
+    setIsEditing(localStorage.getItem("isEditing"));
+    console.log(time);
   }, []);
 
   return (
@@ -105,8 +112,10 @@ function Profile() {
       {isEditing ? (
         <Editing
           profileList={profileList}
+          setProfileList={setProfileList}
           imgUrl={imgUrl}
           time={time}
+          setTime={setTime}
           setHaveProfile={setHaveProfile}
         />
       ) : (

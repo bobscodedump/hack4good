@@ -9,32 +9,24 @@ import {
 } from "firebase/storage";
 
 import EditingTime from "./EditingTime";
+import TimePickerComponent from "./TimePickerComponent";
 
-function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
+function Editing({
+  profileList,
+  imgUrl,
+  time,
+  setHaveProfile,
+  daysUsed,
+  setProfileList,
+  setTime,
+}) {
   //text data collection
   const userId = localStorage.getItem("uid");
-
-  const currTime = time;
-
-  // const [inputs, setInputs] = useState({
-  //   name: "",
-  //   email: "",
-  //   mobileNumber: "",
-  //   educationLevel: "",
-  // });
-
-  // useEffect(() => {
-  //   if (profileList) {
-  //     setInputs(profileList);
-  //   }
-  //   console.log("editinguseeffect");
-  //   console.log(profileList);
-  // }, []);
 
   let isFormValid = true;
 
   const onChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    setProfileList({ ...profileList, [e.target.name]: e.target.value });
   };
 
   const { name, email, mobileNumber, educationLevel } = profileList;
@@ -99,6 +91,7 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
       handleValidation();
 
       if (isFormValid && uploaded) {
+        const inputs = profileList;
         await deleteDoc(profileDoc);
         await setDoc(profileDoc, {
           author: {
@@ -251,8 +244,15 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
       </div>
       <div className="bg-white w-[800px] px-4 py-2 mx-auto mt-6 rounded-lg ">
         {" "}
-        <EditingTime currTime={time} daysUsed={daysUsed} />
+        <EditingTime currTime={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
+      {/* <TimePickerComponent
+        id="m"
+        day="Monday"
+        currTime={time}
+        intValue={0}
+        value={time[0]}
+      /> */}
     </div>
   );
 }
