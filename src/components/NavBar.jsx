@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
 import { Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";

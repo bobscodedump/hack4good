@@ -210,10 +210,10 @@ function Editing({
               </option>
               <option value="No formal education">No formal education</option>
               <option value="Primary education">Primary education</option>
-              <option value="Secondary education or high school">
+              <option value="Secondary education">
                 Secondary education or high school
               </option>
-              <option value="Diploma">Diploma</option>
+              <option value="GED">Diploma</option>
               <option value="Vocational qualification">
                 Vocational qualification
               </option>
