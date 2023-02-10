@@ -42,6 +42,9 @@ function EditingTime({ currTime }) {
   //     { start: "", end: "" },
   //   ]);
   const [time, setTime] = useState(currTime);
+  useEffect(() => {
+    setTime(currTime);
+  }, []);
 
   //form validation
   let formIsValid = true;
