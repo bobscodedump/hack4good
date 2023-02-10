@@ -57,25 +57,25 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
 
                 switch (index) {
                   case 0:
-                    whichDay = "M";
+                    whichDay = "Monday";
                     break;
                   case 1:
-                    whichDay = "T";
+                    whichDay = "Tuesday";
                     break;
                   case 2:
-                    whichDay = "W";
+                    whichDay = "Wednesday";
                     break;
                   case 3:
-                    whichDay = "Th";
+                    whichDay = "Thursday";
                     break;
                   case 4:
-                    whichDay = "F";
+                    whichDay = "Friday";
                     break;
                   case 5:
-                    whichDay = "S";
+                    whichDay = "Saturday";
                     break;
                   case 6:
-                    whichDay = "Su";
+                    whichDay = "Sunday";
                     break;
                 }
                 return (

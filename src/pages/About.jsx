@@ -87,11 +87,7 @@ function About() {
           description={description[1]}
           title={title[1]}
         />
-        <img
-          src={heartree}
-          className="  position: relative;  bottom: 50; left: 0;"
-          style={{ transform: "translateY(-106%)" }}
-        />
+        <img src={heartree} className="mx-auto " />
       </div>
     </>
   );
