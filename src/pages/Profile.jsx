@@ -14,35 +14,42 @@ import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
 
-function Profile({ setInfo }) {
-  const userId = localStorage.getItem("uid");
+function Profile({
+  setInfo,
+  profileList,
+  setProfileList,
+  userId,
+  haveProfile,
+  setHaveProfile,
+}) {
+  // const userId = localStorage.getItem("uid");
 
-  //get profile data from firebase
-  const [profileList, setProfileList] = useState({
-    name: "",
-    email: "",
-    mobileNumber: "",
-    educationLevel: "",
-  });
-  const colRef = collection(db, "profile");
-  const profileDoc = doc(db, "profile", userId);
-  const [haveProfile, setHaveProfile] = useState(true);
-  const getProfile = async () => {
-    try {
-      const data = await getDoc(profileDoc);
-      if (!(data.data() == undefined)) {
-        setProfileList(data.data().inputs);
-        console.log("your mother not die");
-        console.log(profileList);
-      } else {
-        console.log("your mother die");
-        setHaveProfile(false);
-      }
-      // console.log(profileList);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  // //get profile data from firebase
+  // const [profileList, setProfileList] = useState({
+  //   name: "",
+  //   email: "",
+  //   mobileNumber: "",
+  //   educationLevel: "",
+  // });
+  // const colRef = collection(db, "profile");
+  // const profileDoc = doc(db, "profile", userId);
+  // const [haveProfile, setHaveProfile] = useState(true);
+  // const getProfile = async () => {
+  //   try {
+  //     const data = await getDoc(profileDoc);
+  //     if (!(data.data() == undefined)) {
+  //       setProfileList(data.data().inputs);
+  //       console.log("your mother not die");
+  //       console.log(profileList);
+  //     } else {
+  //       console.log("your mother die");
+  //       setHaveProfile(false);
+  //     }
+  //     // console.log(profileList);
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // };
 
   //   display profile pic
   const pathReference = ref(storage, `/${userId}/profile`);
@@ -100,7 +107,7 @@ function Profile({ setInfo }) {
 
   //render data
   useEffect(() => {
-    getProfile();
+    // getProfile();
     getImage();
     getTime();
     if (!haveProfile) {
