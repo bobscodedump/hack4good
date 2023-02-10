@@ -57,12 +57,12 @@ function About() {
             providing upskilling opportunities. <br /> Join us in our movement
             to uplift.
           </p>
-          <span
+          {/* <span
             onClick={signInWithGoogle}
             className="ml-6 cursor-pointer text-yellow-800 rounded-md  bg-red-200 px-4 py-2 font-bold"
           >
             Join Us
-          </span>
+          </span> */}
         </div>
         <img src={BgImage} className="-rotate-90 ml-auto mt-40 bg-fixed " />
       </div>

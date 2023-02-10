@@ -213,7 +213,7 @@ function Editing({
               <option value="Secondary education">
                 Secondary education or high school
               </option>
-              <option value="GED">Diploma</option>
+              <option value="Diploma">Diploma</option>
               <option value="Vocational qualification">
                 Vocational qualification
               </option>
