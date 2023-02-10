@@ -90,7 +90,10 @@ function App() {
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/resumes" element={<Resumes />} />
+          <Route
+            path="/resumes"
+            element={<Resumes imgUrl={imgUrl} profileList={profileList} />}
+          />
           <Route
             path="/profile"
             element={
