@@ -107,7 +107,7 @@ function Profile() {
     }
     setIsEditing(localStorage.getItem("isEditing"));
     console.log(time);
-    if (!localStorage.setItem("isAuth")) {
+    if (!localStorage.getItem("isAuth")) {
       window.location.pathname = "/about";
     }
   }, []);
