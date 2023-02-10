@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import TimeBar from "./TimeBar";
 
 function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
   const userId = localStorage.getItem("uid");
@@ -49,7 +50,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
         </div>
 
-        <div className="h-[400px] w-[464px] bg-mudPink">
+        <div className="h-[400px] w-screen bg-mudPink">
           {haveTime ? (
             time.map((day, index) => {
               if (day.start !== "" && day.end !== "") {
@@ -81,8 +82,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
                 return (
                   <div>
                     <p>{whichDay}</p>
-                    <p>{day.start}</p>
-                    <p>{day.end}</p>
+                    <TimeBar startTime={day.start} endTime={day.end} />
                   </div>
                 );
               }
