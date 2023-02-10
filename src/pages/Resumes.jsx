@@ -91,17 +91,24 @@ function Resumes({}) {
   //     }
   //   };
   return (
-    <div className="grid grid-cols-1 items-center mt-10">
-      {resumeData.map((e) => {
-        // console.log(e);
-        return (
-          <div>
-            <h1 className="text-center">{e.inputs.name}</h1>
-            <h1 className="text-center">{e.inputs.email}</h1>
-            <h1 className="text-center">{e.inputs.educationLevel}</h1>
-          </div>
-        );
-      })}
+    <div className="grid grid-cols-1 place-items-center mt-10">
+      <div className="bg-white w-[800px] mx-auto rounded-lg px-20 py-4 mt-[40px]">
+        {resumeData.map((e) => {
+          return (
+            <div className="m-10 bg-pink-500 p-10 rounded-lg shadow-lg">
+              <h1 className="text-center font-sans font-bold text-xl">
+                {e.inputs.name}
+              </h1>
+              <h1 className="text-center font-sans font-medium text-lg mt-2">
+                {e.inputs.email}
+              </h1>
+              <h1 className="text-center font-sans font-medium text-lg mt-2">
+                {e.inputs.educationLevel}
+              </h1>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
