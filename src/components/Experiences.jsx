@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 
-function Experiences() {
+function Experiences({ getInputs, setGetInputs }) {
   const userId = localStorage.getItem("uid");
 
   //collecting inputs
@@ -24,7 +24,7 @@ function Experiences() {
       ...inputs,
       [e.target.name]: e.target.value,
     });
-    console.log(inputs);
+    // console.log(inputs);
   };
 
   const { type, description } = inputs;
@@ -47,23 +47,23 @@ function Experiences() {
   };
 
   //getting inputs
-  const [getInputs, setGetInputs] = useState([]);
-  useEffect(() => {
-    const q = query(
-      collection(db, "profile", `${userId}entries`, "jobs"),
-      orderBy("type")
-    );
-    onSnapshot(q, (querySnapshot) => {
-      setGetInputs(
-        querySnapshot.docs.map((doc) => ({
-          type: doc.data().type,
-          description: doc.data().description,
-          id: doc.id,
-        }))
-      );
-    });
-    console.log(getInputs);
-  }, []);
+  //   const [getInputs, setGetInputs] = useState([]);
+  //   useEffect(() => {
+  //     const q = query(
+  //       collection(db, "profile", `${userId}entries`, "jobs"),
+  //       orderBy("type")
+  //     );
+  //     onSnapshot(q, (querySnapshot) => {
+  //       setGetInputs(
+  //         querySnapshot.docs.map((doc) => ({
+  //           type: doc.data().type,
+  //           description: doc.data().description,
+  //           id: doc.id,
+  //         }))
+  //       );
+  //     });
+  //     console.log(getInputs);
+  //   }, []);
 
   const handleDelete = async (e) => {
     const id = e.target.value;

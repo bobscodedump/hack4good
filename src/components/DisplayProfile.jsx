@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import TimeBar from "./TimeBar";
 
-function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
+function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
   const userId = localStorage.getItem("uid");
 
   const { name, email, mobileNumber, educationLevel } = profileList;
@@ -95,6 +95,12 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           ) : (
             <div></div>
           )}
+          {getInputs.map((input) => (
+            <div>
+              <h1>{input.type}</h1>
+              <p>{input.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

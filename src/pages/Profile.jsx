@@ -5,6 +5,9 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  query,
+  orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
@@ -112,6 +115,25 @@ function Profile() {
     }
   }, []);
 
+  //get experiences
+  const [getInputs, setGetInputs] = useState([]);
+  useEffect(() => {
+    const q = query(
+      collection(db, "profile", `${userId}entries`, "jobs"),
+      orderBy("type")
+    );
+    onSnapshot(q, (querySnapshot) => {
+      setGetInputs(
+        querySnapshot.docs.map((doc) => ({
+          type: doc.data().type,
+          description: doc.data().description,
+          id: doc.id,
+        }))
+      );
+    });
+    console.log(getInputs);
+  }, []);
+
   return (
     <div>
       {isEditing ? (
@@ -122,6 +144,8 @@ function Profile() {
           time={time}
           setTime={setTime}
           setHaveProfile={setHaveProfile}
+          getInputs={getInputs}
+          setGetInputs={setGetInputs}
         />
       ) : (
         <DisplayProfile
@@ -130,6 +154,7 @@ function Profile() {
           time={time}
           setTime={setTime}
           haveTime={haveTime}
+          getInputs={getInputs}
         />
       )}
 
