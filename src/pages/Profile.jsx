@@ -10,7 +10,6 @@ import { db, auth, storage } from "../firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
-import { setDay } from "date-fns";
 
 function Profile() {
   const userId = localStorage.getItem("uid");
@@ -75,6 +74,9 @@ function Profile() {
       if (data.data() != undefined) {
         setTime(data.data().time);
         setHaveTime(true);
+        console.log("get time");
+        console.log(time);
+        console.log(time === undefined);
       }
     } catch (err) {
       console.error(err.message);
@@ -98,6 +100,16 @@ function Profile() {
     getProfile();
     getImage();
     getTime();
+    if (!haveProfile) {
+      localStorage.setItem("isEditing", false);
+    } else {
+      localStorage.setItem("isEditing", true);
+    }
+    setIsEditing(localStorage.getItem("isEditing"));
+    console.log(time);
+    if (!localStorage.setItem("isAuth")) {
+      window.location.pathname = "/about";
+    }
   }, []);
 
   return (
@@ -105,8 +117,10 @@ function Profile() {
       {isEditing ? (
         <Editing
           profileList={profileList}
+          setProfileList={setProfileList}
           imgUrl={imgUrl}
           time={time}
+          setTime={setTime}
           setHaveProfile={setHaveProfile}
         />
       ) : (

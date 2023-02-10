@@ -9,32 +9,24 @@ import {
 } from "firebase/storage";
 
 import EditingTime from "./EditingTime";
+import Experiences from "./Experiences";
 
-function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
+function Editing({
+  profileList,
+  imgUrl,
+  time,
+  setHaveProfile,
+  daysUsed,
+  setProfileList,
+  setTime,
+}) {
   //text data collection
   const userId = localStorage.getItem("uid");
-
-  const currTime = time;
-
-  // const [inputs, setInputs] = useState({
-  //   name: "",
-  //   email: "",
-  //   mobileNumber: "",
-  //   educationLevel: "",
-  // });
-
-  // useEffect(() => {
-  //   if (profileList) {
-  //     setInputs(profileList);
-  //   }
-  //   console.log("editinguseeffect");
-  //   console.log(profileList);
-  // }, []);
 
   let isFormValid = true;
 
   const onChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    setProfileList({ ...profileList, [e.target.name]: e.target.value });
   };
 
   const { name, email, mobileNumber, educationLevel } = profileList;
@@ -50,40 +42,40 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
     };
     if (name === "") {
       isFormValid = false;
-      alert("name");
+      // alert("name");
       errors.name = "Please enter your full name";
     }
     if (email === "") {
       isFormValid = false;
-      alert("email");
+      // alert("email");
       errors.email = "Please enter your email";
     }
     const validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!email.match(validRegex)) {
       isFormValid = false;
-      alert("email");
+      // alert("email");
       errors.email = "Please enter a valid email";
     }
     const phoneRegex = /^(6|8|9)\d{7}$/;
     if (mobileNumber === "") {
       isFormValid = false;
-      alert("no");
+      // alert("no");
       errors.mobileNumber = "Please enter your phone number";
     }
     if (!mobileNumber.match(phoneRegex)) {
       isFormValid = false;
-      alert("no");
+      // alert("no");
       errors.mobileNumber = "Please enter a valid phone number";
     }
     if (educationLevel == "default") {
       isFormValid = false;
-      alert("education");
+      // alert("education");
       errors.educationLevel = "Please enter your education level";
     }
     if (!uploaded) {
       isFormValid = false;
-      alert("uploaded");
+      // alert("uploaded");
       errors.pictureUpload = "Please upload your profile picture";
     }
     return errors;
@@ -99,6 +91,7 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
       handleValidation();
 
       if (isFormValid && uploaded) {
+        const inputs = profileList;
         await deleteDoc(profileDoc);
         await setDoc(profileDoc, {
           author: {
@@ -155,6 +148,11 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
       }
     );
   }
+
+  useEffect(() => {
+    console.log("editing");
+    console.log(time[0]);
+  });
 
   return (
     <div className="bg-red-100 h-full">
@@ -251,8 +249,9 @@ function Editing({ profileList, imgUrl, time, setHaveProfile, daysUsed }) {
       </div>
       <div className="bg-white w-[800px] px-4 py-2 mx-auto mt-6 rounded-lg ">
         {" "}
-        <EditingTime currTime={time} daysUsed={daysUsed} />
+        <EditingTime time={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
+      {/* <Experiences /> */}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { setDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db, auth, storage } from "../firebase-config";
 import TimePickerComponent from "./TimePickerComponent";
 
-function EditingTime({ currTime }) {
+function EditingTime({ time, setTime }) {
   //time picker
   const format = "HH:mm";
 
@@ -47,7 +47,6 @@ function EditingTime({ currTime }) {
   }, []);
 
   //form validation
-  let formIsValid = true;
   const handleForm = () => {
     for (var i = 0; i < 7; i++) {
       if (days[i]) {
@@ -85,13 +84,9 @@ function EditingTime({ currTime }) {
     }
   };
 
-  //   useEffect(() => {
-  //     setTime(currTime);
-  //     // if (!currTime == undefined) {
-  //     //   setTime(currTime);
-  //     //   console.log("ALLAHU AKBAR");
-  //     // }
-  //   }, []);
+  useEffect(() => {
+    console.log("editingtime");
+  }, []);
 
   return (
     <div id="timeslot input area">
@@ -104,7 +99,7 @@ function EditingTime({ currTime }) {
             id="m"
             day="Monday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={0}
             value={time[0]}
           />
@@ -112,7 +107,7 @@ function EditingTime({ currTime }) {
             id="t"
             day="Tuesday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={1}
             value={time[1]}
           />
@@ -120,7 +115,7 @@ function EditingTime({ currTime }) {
             id="w"
             day="Wednesday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={2}
             value={time[2]}
           />
@@ -128,7 +123,7 @@ function EditingTime({ currTime }) {
             id="th"
             day="Thursday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={3}
             value={time[3]}
           />
@@ -136,7 +131,7 @@ function EditingTime({ currTime }) {
             id="f"
             day="Friday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={4}
             value={time[4]}
           />
@@ -144,7 +139,7 @@ function EditingTime({ currTime }) {
             id="s"
             day="Saturday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={5}
             value={time[5]}
           />
@@ -152,7 +147,7 @@ function EditingTime({ currTime }) {
             id="su"
             day="Sunday"
             setTime={setTime}
-            currTime={time}
+            time={time}
             intValue={6}
             value={time[6]}
           />
