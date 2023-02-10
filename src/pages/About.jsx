@@ -7,6 +7,8 @@ import OldMan from "../../public/assets/images/oldGuy.png";
 import sad from "../../public/assets/images/Screenshot 2023-02-09 at 12.49.19 AM.png";
 import AboutCard from "../components/AboutCard";
 import { Descriptions } from "antd";
+import heartree from "../../public/assets/images/hold.png";
+import heart from "../../public/assets/images/heart.png";
 
 function About() {
   const {
@@ -25,7 +27,7 @@ function About() {
   };
 
   const description = [
-    "It's like I am in prison everyday. Every time I come I feel that I am losing time and I can't wait to get out of this to have something to do",
+    "I feel like a prisoner. Every time I come I feel that I am losing time and I can't wait to get out of this to have something to do",
     "I was diagnosed with kidney failure at the age of 19. My parents are working as cleaners and earning 2000 yuan a month",
   ];
 
@@ -36,7 +38,7 @@ function About() {
 
   const image = [OldMan, sad];
 
-  const title = ["Alejo M", "Sun Wenjuan"];
+  const title = ["Alejo Morales", "Sun Wenjuan"];
 
   // watch input value by passing the name of it
 
@@ -64,11 +66,17 @@ function About() {
         </div>
         <img src={BgImage} className="-rotate-90 ml-96 mt-40 bg-fixed " />
       </div>
-      <div className="grid -mt-20 bg-red-100">
-        <h1 className="text-center font-bold text-4xl mt-56">
+      <div className="grid -mt-20 bg-red-100"> 
+      <img
+  src={heart}
+  class="animate-bounce object-center mx-auto" 
+
+/>
+
+        <h1 className="text-center text-yellow-900 font-bold font-sans text-4xl mt-56">
           Why Should We Support Them?
         </h1>
-        <h4 className="text-center mb-10 mt-4">
+        <h4 className="text-center font-sans text-xl mb-10 mt-4">
           A walk through the lives of kidney patients
         </h4>
         <AboutCard
@@ -83,6 +91,8 @@ function About() {
           description={description[1]}
           title={title[1]}
         />
+        <img src={heartree} className="  position: relative;  bottom: 50; left: 0;" 
+         style={{ transform: "translateY(-106%)"}}/>
       </div>
     </>
   );
