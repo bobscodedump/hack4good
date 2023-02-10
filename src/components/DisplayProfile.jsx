@@ -6,11 +6,6 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
 
   const { name, email, mobileNumber, educationLevel } = profileList;
 
-  // useEffect(() => {
-  //   console.log(profileList);
-  //   console.log(time);
-  // }, [3]);
-
   return (
     <div>
       <div>

@@ -32,17 +32,6 @@ function EditingTime({ time, setTime }) {
     // console.log(days);
   };
 
-  //   const [time, setTime] = useState([
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //     { start: "", end: "" },
-  //   ]);
-  //   const [time, setTime] = useState(time);
-
   //form validation
   const handleForm = () => {
     for (var i = 0; i < 7; i++) {
