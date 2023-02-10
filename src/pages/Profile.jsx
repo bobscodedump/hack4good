@@ -72,7 +72,7 @@ function Profile() {
   const getTime = async () => {
     try {
       const data = await getDoc(timeDoc);
-      if (data.data() !== undefined) {
+      if (data.data() != undefined) {
         setTime(data.data().time);
         setHaveTime(true);
       }

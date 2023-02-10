@@ -50,7 +50,7 @@ export default function TimePickerComponent({
           <input
             name={id}
             type="time"
-            value={value.start}
+            value={value.end}
             onChange={handleEnd(intValue)}
             className="rounded w-[300px]"
           />
