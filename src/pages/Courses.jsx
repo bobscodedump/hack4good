@@ -20,8 +20,10 @@ function Courses() {
           </Link>
         </div>
         <div>
+        <Link to="/design">
           <img src={Bling} className="w-40 rounded-lg cursor-pointer"></img>
           <p className="font-bold mt-1">Design</p>
+          </Link>
         </div>
         <div>
           <img

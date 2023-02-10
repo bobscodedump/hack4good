@@ -8,6 +8,7 @@ import Courses from "./pages/Courses";
 import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import NewPage from "./pages/NewPage";
+import Design from "./pages/Design";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/newpage" element={<NewPage />} />
+          <Route path="/design" element={<Design />} />
         </Routes>
       </BrowserRouter>
     </div>
