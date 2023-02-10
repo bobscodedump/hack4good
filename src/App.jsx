@@ -54,9 +54,22 @@ function App() {
     }
   };
 
+  //   display profile pic
+  const pathReference = ref(storage, `/${userId}/profile`);
+  const [imgUrl, setImgUrl] = useState("");
+  const getImage = async () => {
+    try {
+      getDownloadURL(pathReference).then((url) => {
+        setImgUrl(url);
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   useEffect(() => {
     getProfile();
-    // getImage();
+    getImage();
     // getTime();
     // if (!haveProfile) {
     //   localStorage.setItem("isEditing", false);
@@ -88,6 +101,10 @@ function App() {
                 userId={userId}
                 haveProfile={haveProfile}
                 setHaveProfile={setHaveProfile}
+                imgUrl={imgUrl}
+                setImgUrl={setImgUrl}
+                getImage={getImage}
+                getProfile={getProfile}
               />
             }
           />

@@ -21,6 +21,9 @@ function Profile({
   userId,
   haveProfile,
   setHaveProfile,
+  imgUrl,
+  getProfile,
+  getImage,
 }) {
   // const userId = localStorage.getItem("uid");
 
@@ -51,18 +54,18 @@ function Profile({
   //   }
   // };
 
-  //   display profile pic
-  const pathReference = ref(storage, `/${userId}/profile`);
-  const [imgUrl, setImgUrl] = useState("");
-  const getImage = async () => {
-    try {
-      getDownloadURL(pathReference).then((url) => {
-        setImgUrl(url);
-      });
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  // //   display profile pic
+  // const pathReference = ref(storage, `/${userId}/profile`);
+  // const [imgUrl, setImgUrl] = useState("");
+  // const getImage = async () => {
+  //   try {
+  //     getDownloadURL(pathReference).then((url) => {
+  //       setImgUrl(url);
+  //     });
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // };
 
   //find days used
 
@@ -96,6 +99,7 @@ function Profile({
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(localStorage.getItem("isEditing"));
   const toggleElements = () => {
+    getImage();
     console.log(haveProfile);
     if (haveProfile) {
       localStorage.setItem("isEditing", !localStorage.getItem("isEditing"));
@@ -107,7 +111,7 @@ function Profile({
 
   //render data
   useEffect(() => {
-    // getProfile();
+    getProfile();
     getImage();
     getTime();
     if (!haveProfile) {
