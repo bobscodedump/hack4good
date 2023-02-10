@@ -77,32 +77,49 @@ function Experiences({ getInputs, setGetInputs }) {
   };
 
   return (
-    <div>
-      <h1>Experiences</h1>
+    <div className="bg-white w-[800px] mx-auto rounded-md mt-6 py-4">
+      <h1 className="font-bold ml-20">Experiences</h1>
       <div>
         <fieldset>
-          <select name="type" value={type} onChange={(e) => onChange(e)}>
+          <select
+            name="type"
+            value={type}
+            onChange={(e) => onChange(e)}
+            className="ml-20"
+          >
             <option value="" defaultValue={"default"} disabled="disabled">
-              -- select one --
+              Job Experiences/Skills
             </option>
             <option value="Job">Job</option>
             <option value="Skill">Skill</option>
           </select>
         </fieldset>
-        <textarea
-          name="description"
-          value={description}
-          placeholder="Write description here..."
-          onChange={(e) => onChange(e)}
-        />
-        <button onClick={onSubmit}>Submit</button>
+        <div className="flex flex-col items-start">
+          <textarea
+            name="description"
+            value={description}
+            placeholder="Write description here..."
+            onChange={(e) => onChange(e)}
+            className="w-[650px] h-40 ml-20 border-2 rounded border-gray-200"
+          />
+          <button
+            onClick={onSubmit}
+            className="bg-pink-200 rounded py-2 px-4 mt-2 ml-20"
+          >
+            Submit
+          </button>
+        </div>
       </div>
       {getInputs.map((input) => (
-        <div>
-          <h1>{input.type}</h1>
+        <div className="ml-20 mb-10 border w-[650px] px-4 py-4 rounded mt-4">
+          <h1 className="font-bold">{input.type}</h1>
           <p>{input.description}</p>
-          <button value={input.id} onClick={(e) => handleDelete(e)}>
-            DELETE
+          <button
+            value={input.id}
+            onClick={(e) => handleDelete(e)}
+            className="bg-pink-200 rounded px-2 py-1 text-xs"
+          >
+            Delete Experience
           </button>
         </div>
       ))}

@@ -51,7 +51,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
         </div>
 
         <div className=" w-screen bg-mudPink">
-          <h1 className="font-bold text-2xl ml-4 bg-red-200">
+          <h1 className="font-bold text-2xl pl-4 bg-red-200">
             Dialysis Schedule
           </h1>
           {haveTime ? (
@@ -83,7 +83,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
                     break;
                 }
                 return (
-                  <div className="bg-red-200 pb-1">
+                  <div className="bg-red-200">
                     <p className="text-xl font-bold py-4 underline ml-4">
                       {whichDay}
                     </p>
@@ -95,10 +95,15 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime, getInputs }) {
           ) : (
             <div></div>
           )}
+          <h1 className="font-bold text-2xl  bg-red-200 py-10 pl-4">
+            Experiences
+          </h1>
           {getInputs.map((input) => (
-            <div>
-              <h1>{input.type}</h1>
-              <p>{input.description}</p>
+            <div className="bg-red-200 flex flex-row ml-8">
+              <div className="bg-white w-[800px] px-4 py-4 rounded border py-2">
+                <h1 className="font-bold">{input.type}</h1>
+                <p>{input.description}</p>
+              </div>
             </div>
           ))}
         </div>

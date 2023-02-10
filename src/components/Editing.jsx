@@ -158,7 +158,7 @@ function Editing({
         className="bg-white w-[800px] mx-auto rounded-lg px-20 py-4 mt-[40px]"
       >
         <section>
-          <h2>Name</h2>
+          <h2 className="font-bold">Name</h2>
           <input
             type="text"
             placeholder="  Full Name..."
@@ -170,7 +170,7 @@ function Editing({
           />
         </section>
         <section className="mt-2">
-          <h2>Email</h2>
+          <h2 className="font-bold">Email</h2>
           <input
             type="email"
             placeholder="   Email..."
@@ -183,7 +183,7 @@ function Editing({
           />
         </section>
         <section className="mt-2">
-          <h2>Phone Number</h2>
+          <h2 className="font-bold">Phone Number</h2>
           <input
             type="tel"
             placeholder="   Phone Number..."
@@ -196,7 +196,7 @@ function Editing({
           />
         </section>
         <section className="mt-2">
-          <h2>Education Level</h2>
+          <h2 className="font-bold">Education Level</h2>
           <fieldset>
             <select
               name="educationLevel"
@@ -225,7 +225,7 @@ function Editing({
         </section>
         <section>
           <img src={imgUrl} className=" w-[800px] mt-4 rounded-md mx-auto" />
-          <h2>Upload Profile Picture</h2>
+          <h2 className="font-bold my-2">Upload Profile Picture</h2>
           <input type="file" accept="image/*" onChange={handleChange} />
           <p>{percent} "% done"</p>
           <button
@@ -238,7 +238,7 @@ function Editing({
         <div>
           <button
             onClick={submitForm}
-            className="w-[650px] h-10 bg-pink-200 mt-2 rounded-md"
+            className="w-[650px] h-10 bg-pink-200 mt-2 rounded-md font-bold"
           >
             Confirm Personal Details
           </button>

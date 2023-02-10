@@ -91,7 +91,7 @@ function EditingTime({ time, setTime }) {
       <div>
         <section>
           <h1 className="text-center font-bold text-2xl">
-            Present Kidney Dialysis Schedule
+            Current Kidney Dialysis Schedule
           </h1>
           <TimePickerComponent
             id="m"
@@ -153,7 +153,7 @@ function EditingTime({ time, setTime }) {
         <div>
           <button
             onClick={submitForm}
-            className="bg-pink-200 px-4 py-2 rounded-md"
+            className="bg-pink-200 px-4 py-2 rounded-md font-bold"
           >
             Confirm dialysis schedule
           </button>
