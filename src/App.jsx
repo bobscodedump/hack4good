@@ -78,7 +78,8 @@ function App() {
     { start: "", end: "" },
   ]);
   const [haveTime, setHaveTime] = useState(false);
-  const timeDoc = doc(db, "profile", `${userId}time`);
+  // const timeDoc = doc(db, "profile", `${userId}time`);
+  const timeDoc = doc(db, "profile", `${userId}`, "time", "schedule");
   const getTime = async () => {
     try {
       const data = await getDoc(timeDoc);

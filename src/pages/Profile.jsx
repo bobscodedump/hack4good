@@ -105,6 +105,7 @@ function Profile({
   const [isEditing, setIsEditing] = useState(localStorage.getItem("isEditing"));
   const toggleElements = () => {
     getImage();
+    getTime();
     console.log(haveProfile);
     if (haveProfile) {
       localStorage.setItem("isEditing", !localStorage.getItem("isEditing"));

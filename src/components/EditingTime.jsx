@@ -57,10 +57,11 @@ function EditingTime({ time, setTime }) {
 
   //passing time info to firebase
   const userId = localStorage.getItem("uid");
-  const timeDoc = doc(db, "profile", `${userId}time`);
+  // const timeDoc = doc(db, "profile", `${userId}time`);
+  const timeDoc = doc(db, "profile", `${userId}`, "time", "schedule");
 
   //submiting form, passing data to firebase
-  const submitForm = async (e) => {
+  async function submitForm(e) {
     e.preventDefault();
     try {
       if (handleForm()) {
@@ -79,7 +80,7 @@ function EditingTime({ time, setTime }) {
     } catch (err) {
       console.error(err.message);
     }
-  };
+  }
 
   useEffect(() => {
     console.log("editingtime");
