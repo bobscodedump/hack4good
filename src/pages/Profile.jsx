@@ -75,6 +75,9 @@ function Profile() {
       if (data.data() !== undefined) {
         setTime(data.data().time);
         setHaveTime(true);
+        console.log("get time");
+        console.log(time);
+        console.log(time === undefined);
       }
     } catch (err) {
       console.error(err.message);
