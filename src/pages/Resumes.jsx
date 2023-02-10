@@ -92,20 +92,32 @@ function Resumes({}) {
   //   };
   return (
     <div className="grid grid-cols-1 place-items-center mt-10">
-      <div className="bg-white w-[800px] mx-auto rounded-lg px-20 py-4 mt-[40px]">
+      <div className="w-[800px] mx-auto rounded-lg px-20 py-4 mt-[40px]">
         {resumeData.map((e) => {
           return (
-            <div className="m-10 bg-pink-500 p-10 rounded-lg shadow-lg">
-              <h1 className="text-center font-sans font-bold text-xl">
-                {e.inputs.name}
-              </h1>
-              <h1 className="text-center font-sans font-medium text-lg mt-2">
-                {e.inputs.email}
-              </h1>
-              <h1 className="text-center font-sans font-medium text-lg mt-2">
-                {e.inputs.educationLevel}
-              </h1>
-            </div>
+            <div className="m-10 bg-pink-200 p-10 rounded-lg shadow-lg">
+              <div className="flex justify-center">
+                <h1 className="text-center text-amber-800 font-sans font-bold text-xl mr-1">
+                  Name: </h1>
+                <h1 className="text-center text-amber-800 font-sans font-bold text-xl ml-1">{e.inputs.name}</h1>
+              </div> 
+              <div className="flex justify-center">
+              <h1 className="text-center text-amber-800 font-sans font-bold text-xl mr-1">
+                  Email: </h1>
+            <h1 className="text-center text-amber-800 font-sans font-medium text-lg">
+              {e.inputs.email}
+            </h1>
+            </div> 
+            <div className="flex justify-center">
+              <h1 className="text-center text-amber-800 font-sans font-bold text-xl mr-1">
+                  Education Level: </h1>
+            <h1 className="text-center text-amber-800 font-sans font-medium text-lg">
+              {e.inputs.educationLevel}
+            </h1>
+                 
+          </div>
+          </div>
+        
           );
         })}
       </div>

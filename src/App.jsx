@@ -122,16 +122,6 @@ function App() {
     getProfile();
     getImage();
     getTime();
-    // if (!haveProfile) {
-    //   localStorage.setItem("isEditing", false);
-    // } else {
-    //   localStorage.setItem("isEditing", true);
-    // }
-    // setIsEditing(localStorage.getItem("isEditing"));
-    // console.log(time);
-    // if (!localStorage.getItem("isAuth")) {
-    //   window.location.pathname = "/about";
-    // }
   }, []);
 
   return (
