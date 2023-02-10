@@ -64,7 +64,7 @@ function About() {
             Join Us
           </span>
         </div>
-        <img src={BgImage} className="-rotate-90 ml-96 mt-40 bg-fixed " />
+        <img src={BgImage} className="-rotate-90 ml-auto mt-40 bg-fixed " />
       </div>
       <div className="grid -mt-20 bg-red-100">
         <img src={heart} className="animate-bounce object-center mx-auto" />
