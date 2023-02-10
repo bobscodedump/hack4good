@@ -17,6 +17,8 @@ function Experiences() {
     });
   };
 
+  const { type, description } = inputs;
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const docRef = doc(db, "profile", userId, "jobs");
@@ -31,7 +33,7 @@ function Experiences() {
       <h1>Experiences</h1>
       <div>
         <fieldset>
-          <select name="type" onChange={(e) => onChange(e)}>
+          <select name="type" value={type} onChange={(e) => onChange(e)}>
             <option value="" defaultValue={"default"} disabled="disabled">
               -- select one --
             </option>

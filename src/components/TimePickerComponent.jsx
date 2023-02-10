@@ -5,13 +5,15 @@ export default function TimePickerComponent({
   id,
   setDay,
   setTime,
-  currTime,
+  time,
   intValue,
   value,
 }) {
-  // const [time, changeTime] = useState(currTime);
+  // const [time, changeTime] = useState(time);
+  // useEffect(() => {
+  //   console.log(time);
+  // });
 
-  const time = currTime;
   const handleStart = (index) => (e) => {
     const temp = [...time];
     temp[index].start = e.target.value;

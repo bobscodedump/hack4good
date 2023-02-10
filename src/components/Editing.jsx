@@ -42,40 +42,40 @@ function Editing({
     };
     if (name === "") {
       isFormValid = false;
-      alert("name");
+      // alert("name");
       errors.name = "Please enter your full name";
     }
     if (email === "") {
       isFormValid = false;
-      alert("email");
+      // alert("email");
       errors.email = "Please enter your email";
     }
     const validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!email.match(validRegex)) {
       isFormValid = false;
-      alert("email");
+      // alert("email");
       errors.email = "Please enter a valid email";
     }
     const phoneRegex = /^(6|8|9)\d{7}$/;
     if (mobileNumber === "") {
       isFormValid = false;
-      alert("no");
+      // alert("no");
       errors.mobileNumber = "Please enter your phone number";
     }
     if (!mobileNumber.match(phoneRegex)) {
       isFormValid = false;
-      alert("no");
+      // alert("no");
       errors.mobileNumber = "Please enter a valid phone number";
     }
     if (educationLevel == "default") {
       isFormValid = false;
-      alert("education");
+      // alert("education");
       errors.educationLevel = "Please enter your education level";
     }
     if (!uploaded) {
       isFormValid = false;
-      alert("uploaded");
+      // alert("uploaded");
       errors.pictureUpload = "Please upload your profile picture";
     }
     return errors;
@@ -148,6 +148,11 @@ function Editing({
       }
     );
   }
+
+  useEffect(() => {
+    console.log("editing");
+    console.log(time[0]);
+  });
 
   return (
     <div className="bg-red-100 h-full">
@@ -244,9 +249,9 @@ function Editing({
       </div>
       <div className="bg-white w-[800px] px-4 py-2 mx-auto mt-6 rounded-lg ">
         {" "}
-        <EditingTime currTime={time} daysUsed={daysUsed} setTime={setTime} />
+        <EditingTime time={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
-      <Experiences />
+      {/* <Experiences /> */}
     </div>
   );
 }
