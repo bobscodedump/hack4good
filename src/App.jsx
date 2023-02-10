@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import NavBar from "./components/NavBar";
 import NewPage from "./pages/NewPage";
 import Design from "./pages/Design";
+import Data from "./pages/Data";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/newpage" element={<NewPage />} />
           <Route path="/design" element={<Design />} />
+          <Route path="/Data" element={<Data />} />
         </Routes>
       </BrowserRouter>
     </div>
