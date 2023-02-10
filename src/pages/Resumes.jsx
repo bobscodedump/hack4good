@@ -76,7 +76,7 @@ function Resumes({}) {
 
   useEffect(() => {
     takeData();
-    takeImages();
+    // takeImages();
   }, []);
 
   //   const pathReference = ref(storage, `/${userId}/profile`);
@@ -91,15 +91,14 @@ function Resumes({}) {
   //     }
   //   };
   return (
-    <div>
+    <div className="grid grid-cols-1 items-center mt-10">
       {resumeData.map((e) => {
         // console.log(e);
         return (
           <div>
-            <h1>{e.inputs.name}</h1>
-            <h1>{e.inputs.email}</h1>
-            <h1>{e.inputs.educationLevel}</h1>
-            <img src={e.img} />
+            <h1 className="text-center">{e.inputs.name}</h1>
+            <h1 className="text-center">{e.inputs.email}</h1>
+            <h1 className="text-center">{e.inputs.educationLevel}</h1>
           </div>
         );
       })}
