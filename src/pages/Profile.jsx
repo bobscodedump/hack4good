@@ -24,6 +24,11 @@ function Profile({
   imgUrl,
   getProfile,
   getImage,
+  time,
+  setTime,
+  getTime,
+  haveTime,
+  setHaveTime,
 }) {
   // const userId = localStorage.getItem("uid");
 
@@ -69,32 +74,32 @@ function Profile({
 
   //find days used
 
-  //display schedule
-  const [time, setTime] = useState([
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-    { start: "", end: "" },
-  ]);
-  const [haveTime, setHaveTime] = useState(false);
-  const timeDoc = doc(db, "profile", `${userId}time`);
-  const getTime = async () => {
-    try {
-      const data = await getDoc(timeDoc);
-      if (data.data() !== undefined) {
-        setTime(data.data().time);
-        setHaveTime(true);
-        console.log("get time");
-        console.log(time);
-        console.log(time === undefined);
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  // //display schedule
+  // const [time, setTime] = useState([
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  //   { start: "", end: "" },
+  // ]);
+  // const [haveTime, setHaveTime] = useState(false);
+  // const timeDoc = doc(db, "profile", `${userId}time`);
+  // const getTime = async () => {
+  //   try {
+  //     const data = await getDoc(timeDoc);
+  //     if (data.data() !== undefined) {
+  //       setTime(data.data().time);
+  //       setHaveTime(true);
+  //       console.log("get time");
+  //       console.log(time);
+  //       console.log(time === undefined);
+  //     }
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // };
 
   //toggle editing and display pages
   const [isEditing, setIsEditing] = useState(localStorage.getItem("isEditing"));

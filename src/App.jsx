@@ -67,10 +67,37 @@ function App() {
     }
   };
 
+  //display schedule
+  const [time, setTime] = useState([
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+    { start: "", end: "" },
+  ]);
+  const [haveTime, setHaveTime] = useState(false);
+  const timeDoc = doc(db, "profile", `${userId}time`);
+  const getTime = async () => {
+    try {
+      const data = await getDoc(timeDoc);
+      if (data.data() !== undefined) {
+        setTime(data.data().time);
+        setHaveTime(true);
+        console.log("get time");
+        console.log(time);
+        console.log(time === undefined);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   useEffect(() => {
     getProfile();
     getImage();
-    // getTime();
+    getTime();
     // if (!haveProfile) {
     //   localStorage.setItem("isEditing", false);
     // } else {
@@ -92,7 +119,9 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route
             path="/resumes"
-            element={<Resumes imgUrl={imgUrl} profileList={profileList} />}
+            element={
+              <Resumes imgUrl={imgUrl} profileList={profileList} time={time} />
+            }
           />
           <Route
             path="/profile"
@@ -108,6 +137,11 @@ function App() {
                 setImgUrl={setImgUrl}
                 getImage={getImage}
                 getProfile={getProfile}
+                time={time}
+                setTime={setTime}
+                getTime={getTime}
+                haveTime={haveTime}
+                setHaveTime={setHaveTime}
               />
             }
           />
