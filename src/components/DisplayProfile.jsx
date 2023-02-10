@@ -28,10 +28,10 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
           </div>
           <div
             className="flex border-t-[150px] border-t-transparent
-    border-l-[1000px] border-l-red-200
+    border-l-[80px] border-l-red-200
     border-b-[120px] border-b-transparent relative"
           >
-            <div className="absolute flex -ml-[1225px] -mt-36">
+            <div className="absolute flex  -ml-[290px]  :md-ml-[500px]  -mt-36">
               <div className="flex flex-col ml-10 mt-10">
                 <div>
                   <h1 className=" text-yellow-900">Email</h1>
@@ -51,6 +51,9 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
         </div>
 
         <div className=" w-screen bg-mudPink">
+          <h1 className="font-bold text-2xl ml-4 bg-red-200">
+            Dialysis Schedule
+          </h1>
           {haveTime ? (
             time.map((day, index) => {
               if (day.start !== "" && day.end !== "") {
@@ -80,7 +83,7 @@ function DisplayProfile({ profileList, imgUrl, time, haveTime }) {
                     break;
                 }
                 return (
-                  <div className="bg-red-100 py-10">
+                  <div className="bg-red-200 pb-1">
                     <p className="text-xl font-bold py-4 underline ml-4">
                       {whichDay}
                     </p>

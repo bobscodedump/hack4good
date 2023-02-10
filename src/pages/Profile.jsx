@@ -135,7 +135,7 @@ function Profile() {
 
       <div>
         {!isEditing ? (
-          <div className="bg-red-100 -mt-4 flex flex-row justify-center mt-2">
+          <div className="bg-red-200 -mt-4 flex flex-row justify-center mt-2">
             <button
               className="bg-pink-200 py-3 px-14 rounded-lg my-8"
               onClick={() => {

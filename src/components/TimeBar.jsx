@@ -23,7 +23,7 @@ const TimeBar = ({ startTime, endTime }) => {
   const indexStyle = {
     position: "relative",
     height: "40px",
-    width: "100%",
+    width: "40%",
     display: "inline-block",
     marginTop: "5px",
     marginBottom: "5px",
@@ -47,14 +47,14 @@ const TimeBar = ({ startTime, endTime }) => {
   };
 
   return (
-    <div style={indexStyle}>
+    <div style={indexStyle} className="mx-28">
       <div style={timeBarStyle}></div>
       {[
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
         20, 21, 22, 23, 24,
       ].map((hour) => (
         <>
-          {hour % 2 === 0 && hour !== 24 && (
+          {hour % 2 === 0 && (
             <div
               key={hour}
               style={{ ...indexMarkerStyle, left: `${(hour / 24) * 100}%` }}
