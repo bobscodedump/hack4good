@@ -10,7 +10,6 @@ import { db, auth, storage } from "../firebase-config";
 import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
-import { setDay } from "date-fns";
 
 function Profile() {
   const userId = localStorage.getItem("uid");
@@ -108,6 +107,9 @@ function Profile() {
     }
     setIsEditing(localStorage.getItem("isEditing"));
     console.log(time);
+    if (!localStorage.setItem("isAuth")) {
+      window.location.pathname = "/about";
+    }
   }, []);
 
   return (
