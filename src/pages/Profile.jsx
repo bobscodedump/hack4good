@@ -14,7 +14,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import Editing from "../components/Editing";
 import DisplayProfile from "../components/DisplayProfile";
 
-function Profile() {
+function Profile({ setInfo }) {
   const userId = localStorage.getItem("uid");
 
   //get profile data from firebase
