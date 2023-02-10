@@ -19,6 +19,8 @@ function Editing({
   daysUsed,
   setProfileList,
   setTime,
+  getInputs,
+  setGetInputs,
 }) {
   //text data collection
   const userId = localStorage.getItem("uid");
@@ -246,7 +248,7 @@ function Editing({
         {" "}
         <EditingTime time={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
-      <Experiences />
+      <Experiences getInputs={getInputs} setGetInputs={setGetInputs} />
     </div>
   );
 }
