@@ -73,11 +73,6 @@ function Editing({
       // alert("education");
       errors.educationLevel = "Please enter your education level";
     }
-    if (!uploaded) {
-      isFormValid = false;
-      // alert("uploaded");
-      errors.pictureUpload = "Please upload your profile picture";
-    }
     return errors;
   };
 
@@ -90,7 +85,7 @@ function Editing({
     try {
       handleValidation();
 
-      if (isFormValid && uploaded) {
+      if (isFormValid) {
         const inputs = profileList;
         await deleteDoc(profileDoc);
         await setDoc(profileDoc, {
@@ -251,7 +246,7 @@ function Editing({
         {" "}
         <EditingTime time={time} daysUsed={daysUsed} setTime={setTime} />
       </div>
-      {/* <Experiences /> */}
+      <Experiences />
     </div>
   );
 }
