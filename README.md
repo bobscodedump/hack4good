@@ -1,4 +1,4 @@
-# Hack4Goodz
+# Hack4Good
 
 Our motivation
 With a mission to uplift the emotional well-being of kidney patients, our project aims to empower patients with kidney failure by connecting with job opportunities. We believe that employment plays a crucial role in increasing their sense of self-worth and independence. Our goal is to integrate kidney patients into the workforce and challenge society's perception of them, so that employers can uncover their hidden talents.
